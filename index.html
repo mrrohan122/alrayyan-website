@@ -144,6 +144,179 @@ html[lang="en"] .lang-en { display: block !important; }
   opacity: 1 !important;
 }
 
+
+/* Contact Grid & Hours Card Desktop Layout (Zero Gap Fix) */
+@media (min-width: 960px) {
+  .contact-grid {
+    grid-template-columns: 1.15fr 0.85fr !important;
+    align-items: start !important;
+  }
+}
+.hours-card {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.15rem !important;
+  justify-content: flex-start !important;
+}
+.hours-timing-pill {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.95rem 1.15rem;
+  background: rgba(182, 141, 82, 0.12);
+  border: 1px solid rgba(209, 174, 121, 0.4);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+.hours-timing-pill:hover {
+  background: rgba(182, 141, 82, 0.18);
+  border-color: var(--accent-bronze);
+}
+.hours-timing-day {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #FFFFFF;
+  font-size: 0.95rem;
+}
+.hours-timing-val {
+  color: var(--accent-bronze-light);
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+.hours-perks-list {
+  display: grid;
+  gap: 0.6rem;
+  padding-block: 0.15rem;
+}
+.hours-perk-item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.86rem;
+  color: var(--text-secondary-light);
+  line-height: 1.5;
+}
+.hours-perk-check {
+  color: #22C55E;
+  font-weight: 800;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+.hours-est-box {
+  padding: 1rem 1.15rem;
+  background: rgba(18, 18, 16, 0.65);
+  border: 1px solid rgba(182, 141, 82, 0.28);
+  font-size: 0.86rem;
+  color: var(--text-secondary-light);
+  border-radius: var(--radius-sm);
+}
+
+/* Quote Section Desktop Vertical Center Alignment */
+@media (min-width: 960px) {
+  .quote-wrapper {
+    grid-template-columns: 0.9fr 1.1fr !important;
+    gap: 3.5rem !important;
+    align-items: center !important;
+  }
+}
+
+/* Interactive Contact Form Micro-Animations */
+.quote-steps-list {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1.75rem;
+}
+.quote-step-item {
+  display: flex;
+  align-items: center;
+  gap: 0.95rem;
+  padding: 0.7rem 0.95rem;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(182, 141, 82, 0.22);
+  border-radius: var(--radius-sm);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  cursor: default;
+}
+.quote-step-item:hover {
+  background: #FFFFFF;
+  border-color: var(--accent-bronze);
+  box-shadow: 0 6px 18px rgba(18, 18, 16, 0.06);
+}
+html[dir="rtl"] .quote-step-item:hover {
+  transform: translateX(-5px);
+}
+html[dir="ltr"] .quote-step-item:hover {
+  transform: translateX(5px);
+}
+.quote-step-num {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--accent-bronze);
+  background: rgba(182, 141, 82, 0.1);
+  display: grid;
+  place-items: center;
+  color: var(--accent-bronze-dark);
+  font-weight: 800;
+  font-size: 1rem;
+  flex-shrink: 0;
+  border-radius: 4px;
+  transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+.quote-step-item:hover .quote-step-num {
+  background-color: var(--accent-bronze);
+  color: #121210;
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px var(--gold-glow);
+}
+.quote-card {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
+  will-change: transform;
+}
+@media (min-width: 960px) {
+  .quote-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 28px 56px -12px rgba(18, 18, 16, 0.16), 0 0 24px -4px var(--gold-glow);
+    border-top-color: var(--accent-bronze-light);
+  }
+}
+.form-group {
+  transition: transform 0.2s ease;
+}
+.form-control {
+  transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+}
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent-bronze-dark);
+  background-color: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(182, 141, 82, 0.22), 0 4px 12px rgba(18, 18, 16, 0.05);
+  transform: translateY(-1px);
+}
+#whatsapp-quote-form button[type="submit"] {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.25s ease;
+}
+#whatsapp-quote-form button[type="submit"]:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 14px 32px rgba(31, 138, 76, 0.42), 0 0 18px rgba(31, 138, 76, 0.35);
+}
+#whatsapp-quote-form button[type="submit"]:active {
+  transform: translateY(-1px) scale(0.99);
+}
+.quote-preview-box {
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+.quote-card:focus-within .quote-preview-box {
+  background: rgba(182, 141, 82, 0.14);
+  border-color: var(--accent-bronze);
+  transform: translateY(-1px);
+}
+
 </style>
 </head>
 <body>
@@ -717,17 +890,17 @@ html[lang="en"] .lang-en { display: block !important; }
 <span class="eyebrow" data-i18n="quote_eyebrow">طلب تسعير سريع</span>
 <h2 class="section-title editorial-heading" data-i18n="quote_title">احصل على عرض سعر مبدئي</h2>
 <p class="section-subtitle" data-i18n="quote_subtitle" style="margin-bottom:1.5rem;">أدخل بيانات مشروعك الأساسية ليتم تجهيز رسالة واتساب منظمة ومباشرة إلى فريق مؤسسة مظلات وسواتر الريان في جدة للرد عليك بالتفاصيل.</p>
-<div style="display:grid; gap:1rem; margin-top:1.75rem;">
-<div style="display:flex; align-items:center; gap:0.85rem;">
-<span style="width:36px;height:36px;border:1px solid var(--accent-bronze);display:grid;place-items:center;color:var(--accent-bronze-dark);font-weight:800;flex-shrink:0;">1</span>
+<div class="quote-steps-list">
+<div class="quote-step-item">
+<span class="quote-step-num">1</span>
 <span data-i18n="quote_bullet_1" style="font-weight:600;">اختر الخدمة ونوع المشروع والمساحة التقريبية</span>
 </div>
-<div style="display:flex; align-items:center; gap:0.85rem;">
-<span style="width:36px;height:36px;border:1px solid var(--accent-bronze);display:grid;place-items:center;color:var(--accent-bronze-dark);font-weight:800;flex-shrink:0;">2</span>
+<div class="quote-step-item">
+<span class="quote-step-num">2</span>
 <span data-i18n="quote_bullet_2" style="font-weight:600;">تُفتح محادثة واتساب مباشرة مع الرقم الرسمي 0550044696</span>
 </div>
-<div style="display:flex; align-items:center; gap:0.85rem;">
-<span style="width:36px;height:36px;border:1px solid var(--accent-bronze);display:grid;place-items:center;color:var(--accent-bronze-dark);font-weight:800;flex-shrink:0;">3</span>
+<div class="quote-step-item">
+<span class="quote-step-num">3</span>
 <span data-i18n="quote_bullet_3" style="font-weight:600;">نتابع معك لتحديد المتطلبات والمقاسات الدقيقة</span>
 </div>
 </div>
@@ -932,21 +1105,32 @@ html[lang="en"] .lang-en { display: block !important; }
 </div>
 </div>
 <div class="hours-card reveal">
-<div>
+<div class="hours-header-wrap">
 <div class="hours-unified-badge">
 <span aria-hidden="true" class="hours-live-dot"></span>
 <span data-i18n="hours_unified_badge">دوام رسمي موحد طوال أيام الأسبوع (شاملاً يوم الجمعة)</span>
 </div>
 <h3 data-i18n="hours_title" style="font-size:1.25rem; font-weight:800; color:#FFFFFF;">أوقات العمل الرسمية</h3>
 <p data-i18n="hours_sub" style="font-size:0.88rem; color:var(--text-secondary-light); margin-top:0.25rem;">نسعد بخدمتكم والرد على استفساراتكم طوال أيام الأسبوع بنفس التوقيت</p>
-<ul class="hours-list">
-<li class="hours-item" style="border-bottom:none; padding-bottom:0;">
-<span data-i18n="hours_all_week_lbl">طوال أيام الأسبوع</span>
-<span data-i18n="hours_all_week_val" style="color:var(--accent-bronze-light); font-weight:700;">9:00 صباحاً – 12:00 منتصف الليل</span>
-</li>
-</ul>
 </div>
-<div style="padding:1rem; background:rgba(18,18,16,0.55); border:1px solid rgba(182,141,82,0.28); font-size:0.86rem; color:var(--text-secondary-light);">
+<div class="hours-timing-pill">
+<div class="hours-timing-day">
+<svg fill="none" height="18" stroke="#D1AE79" stroke-width="2" viewBox="0 0 24 24" width="18"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+<span data-i18n="hours_all_week_lbl" style="font-weight:700;">طوال أيام الأسبوع</span>
+</div>
+<div class="hours-timing-val" data-i18n="hours_all_week_val">9:00 صباحاً – 12:00 منتصف الليل</div>
+</div>
+<div class="hours-perks-list">
+<div class="hours-perk-item">
+<span class="hours-perk-check">✓</span>
+<span data-i18n="hours_feat_1">استجابة سريعة واستقبال الاستفسارات عبر واتساب طوال فترة العمل</span>
+</div>
+<div class="hours-perk-item">
+<span class="hours-perk-check">✓</span>
+<span data-i18n="hours_feat_2">معاينة ورفع مقاسات ميدانية في جميع أحياء ومناطق جدة</span>
+</div>
+</div>
+<div class="hours-est-box">
 <strong data-i18n="est_label" style="color:#FFFFFF; display:block; margin-bottom:0.2rem;">تاريخ التأسيس: 8 فبراير 2014</strong>
 <span data-i18n="est_note">مؤسسة مظلات وسواتر الريان في جدة — السندويش بنل وبيوت الشعر.</span>
 </div>
@@ -1033,7 +1217,7 @@ html[lang="en"] .lang-en { display: block !important; }
 </div>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["LocalBusiness","HomeAndConstructionBusiness"],"@id":"https://alrayyan-panels.com/#localbusiness","name":"مظلات وسواتر الريان و السندويش بنل وبيوت الشعر","alternateName":["مؤسسة الريان","مؤسسة مظلات وسواتر الريان في جدة","Al-Rayyan Shades & Panels - Jeddah","Al-Rayyan — Sandwich Panels, Shades & Outdoor Structures"],"description":"مؤسسة مظلات وسواتر الريان في جدة متخصصة منذ أكثر من 15 عاماً في توريد وتركيب السندويش بنل، مظلات السيارات والحدائق، البرجولات والجلسات الخارجية، السواتر، بيوت الشعر، اللكسان، والقرميد الفخار الإيطالي بأعلى معايير الجودة الهندسية والضمان الرسمي.","url":"https://alrayyan-panels.com","telephone":"+966550044696","foundingDate":"2014-02-08","priceRange":"$$","hasMap":"https://maps.google.com/maps?cid=2037894662107399438","sameAs":["https://www.instagram.com/alrean12.2/","https://maps.google.com/maps?cid=2037894662107399438","https://wa.me/966550044696"],"address":{"@type":"PostalAddress","streetAddress":"بجوار اسواق المزرعة، حي","addressLocality":"جدة","addressRegion":"مكة المكرمة","addressCountry":"SA"},"areaServed":[{"@type":"City","name":"Jeddah"},{"@type":"Place","name":"Al Hamdaniya, Jeddah"},{"@type":"Country","name":"Saudi Arabia"}],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:00","closes":"23:59"}],"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.6","bestRating":"5","reviewCount":"46"},"review":[{"@type":"Review","author":{"@type":"Person","name":"بندر الزهراني"},"reviewBody":"سرعة تركيب ودقه بالموعد وجوده منتج وحسن التعامل مع العميل","reviewRating":{"@type":"Rating","ratingValue":"5","bestRating":"5"}},{"@type":"Review","author":{"@type":"Person","name":"وليد"},"reviewBody":"أشكر الأخ فواز وفريق العمل مبدعين ومتقنين و فنانين الله يبارك لهم","reviewRating":{"@type":"Rating","ratingValue":"5","bestRating":"5"}},{"@type":"Review","author":{"@type":"Person","name":"أبو هيثم"},"reviewBody":"عملت عندهم لكسان شغلهم مميز ومواعيدهم دقيقه شكرا للأستاذ فواز","reviewRating":{"@type":"Rating","ratingValue":"5","bestRating":"5"}},{"@type":"Review","author":{"@type":"Person","name":"محمد القحطاني"},"reviewBody":"ممتازين جدآ انصح فيهم","reviewRating":{"@type":"Rating","ratingValue":"5","bestRating":"5"}},{"@type":"Review","author":{"@type":"Person","name":"عبدالله الشرعبي"},"reviewBody":"كفووو واحسن معامله ومافيه تقصير والله يرزق من يشاء بغير حساب","reviewRating":{"@type":"Rating","ratingValue":"5","bestRating":"5"}}]},{"@type":"WebSite","@id":"https://alrayyan-panels.com/#website","url":"https://alrayyan-panels.com","name":"مؤسسة مظلات وسواتر الريان في جدة | Al-Rayyan","inLanguage":["ar-SA","en-SA"],"publisher":{"@id":"https://alrayyan-panels.com/#localbusiness"}},{"@type":"BreadcrumbList","@id":"https://alrayyan-panels.com/#breadcrumbs","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية | Home","item":"https://alrayyan-panels.com/#home"},{"@type":"ListItem","position":2,"name":"خدماتنا | Services","item":"https://alrayyan-panels.com/#services"},{"@type":"ListItem","position":3,"name":"من نحن | About Us","item":"https://alrayyan-panels.com/#about"},{"@type":"ListItem","position":4,"name":"أعمالنا | Projects","item":"https://alrayyan-panels.com/#projects"},{"@type":"ListItem","position":5,"name":"تواصل معنا | Contact","item":"https://alrayyan-panels.com/#contact"}]},{"@type":"FAQPage","@id":"https://alrayyan-panels.com/#faqpage","mainEntity":[{"@type":"Question","name":"ما هي مظلات الشد الإنشائي وأين تستخدم؟","acceptedAnswer":{"@type":"Answer","text":"هي مظلات هندسية عملاقة بدون أعمدة منتصف، تُستخدم للمشاريع الكبيرة، المدارس، المواقف التجارية، والملاعب."}},{"@type":"Question","name":"ما هو قماش PVC وما هي مميزاته؟","acceptedAnswer":{"@type":"Answer","text":"هو مادة متينة، فعالة، ومقاومة للحرارة والماء بنسبة 100%، مثالية للمظلات الكبيرة."}},{"@type":"Question","name":"ما هو قماش PVDF وما الذي يجعله استثنائياً؟","acceptedAnswer":{"@type":"Answer","text":"هو غشاء بوليستر مطلي بـ PVC مع طبقة فلوروبوليمر علوية تقلل التصاق الأوساخ وتقاوم الأشعة فوق البنفسجية."}},{"@type":"Question","name":"كم يبلغ العمر الافتراضي لمظلات PVC و PVDF؟","acceptedAnswer":{"@type":"Answer","text":"تتميز هذه الأقمشة بعمر افتراضي طويل يتراوح بين 10 إلى 18 عاماً مع الحفاظ على ثبات اللون."}},{"@type":"Question","name":"هل الأقمشة المستخدمة عازلة للماء تماماً؟","acceptedAnswer":{"@type":"Answer","text":"نعم، جميع الأقمشة التي نستخدمها في المظلات مقاومة للماء وعازلة بنسبة 100%."}},{"@type":"Question","name":"كيف يتم تصنيع وتفصيل الهياكل المعدنية؟","acceptedAnswer":{"@type":"Answer","text":"نقوم بتفصيل الهياكل بدقة عالية مع الجلفنة، الدهان الحراري (الفرن)، واستخدام قواعد خرسانية مدروسة هندسياً."}},{"@type":"Question","name":"ما هي تقنية اللحام المستخدمة في الأقمشة؟","acceptedAnswer":{"@type":"Answer","text":"نستخدم تقنية اللحام بالتردد العالي (HF) لضمان أقصى درجات القوة والتماسك في حواف القماش."}},{"@type":"Question","name":"ما هي قدرة تحمل المظلات لسرعة الرياح؟","acceptedAnswer":{"@type":"Answer","text":"تم تصميم واختبار الشد للمظلات لتتحمل سرعة رياح تتراوح من 2800 إلى 4500 نيوتن/5سم."}},{"@type":"Question","name":"هل تقدمون ضماناً على مظلات الشد الإنشائي؟","acceptedAnswer":{"@type":"Answer","text":"نعم، أنظمة مظلات PVC و PVDF المعتمدة لدينا مدعومة بضمان يمتد لـ 10 سنوات."}},{"@type":"Question","name":"هل يتم إرفاق شهادات منشأ للمواد المستخدمة؟","acceptedAnswer":{"@type":"Answer","text":"بكل تأكيد، نعتمد على المواصفات الدقيقة لورقة بيانات المنتج ونرفق شهادات المنشأ لضمان الجودة."}}]}]}</script>
 <script>
-(function() {const I18N = {ar: {meta_title: "مظلات وسندويش بنل جدة | مؤسسة مظلات وسواتر الريان في جدة",meta_desc: "مؤسسة مظلات وسواتر الريان في جدة — خبرة تتجاوز 15 عاماً في توريد وتركيب السندويش بنل، مظلات السيارات والحدائق، البرجولات، السواتر، بيوت الشعر، اللكسان، والقرميد بأعلى معايير الجودة والضمان الرسمي.",brand_short: "مؤسسة الريان",brand_full: "مظلات وسواتر الريان و السندويش بنل وبيوت الشعر",brand_tagline: "سندويش بنل • مظلات • سواتر",nav_home: "الرئيسية",nav_services: "خدماتنا",nav_projects: "أعمالنا",nav_why: "لماذا نحن",nav_about: "من نحن",nav_faq: "الأسئلة الشائعة",nav_contact: "تواصل معنا",header_cta: "اطلب عرض سعر",hero_badge: "مظلات الريان لسواتر و البرجولات والسندويش البنل و القرميد والهياكل الانشائية",hero_h1: "مظلات الريان للسواتر والبرجولات والسندويش بنل والقرميد والهياكل الإنشائية",hero_sub: "متخصصون في السندويش بنل والمظلات والسواتر والبرجولات وبيوت الشعر والقراميد، بخبرة تتجاوز 15 عاماً واستخدام أفضل المواد وفنيين ذوي خبرة عالية.",hero_cta_wa: "اطلب عرض سعر عبر واتساب",hero_cta_call: "اتصل الآن",hero_trust_line: "خبرة تتجاوز 15 عاماً • خدمة في جدة • جودة في التنفيذ وضمان رسمي",trust_reviews_label: "46 تقييم على Google",trust_years_unit: "عاماً",trust_exp_label: "خبرة رائدة في جدة",trust_since_prefix: "منذ",trust_serving_label: "في خدمة عملائنا بجدة",services_eyebrow: "خدماتنا المتخصصة في جدة",services_title: "توريد وتركيب سندويش بنل وجميع أنواع المظلات والبرجولات وبيوت الشعر والقراميد والديكورات العشبية الخارجية",services_subtitle: "تنفيذ أعمال السندويش بنل والمظلات والسواتر والبرجولات. في مؤسسة الريان نجمع بين التصاميم العصرية وجودة المواد العالية، ونقدم نموذجاً راقياً شكلاً ولوناً مع لمسة أنيقة تعطي المكان تميزاً. نحرص دائماً على اختيار أفضل المواد طويلة الأمد المقاومة لجميع الظروف الجوية وذات عمر افتراضي طويل مع الضمان.",srv_1_title: "سندويش بنل",srv_1_desc: "توريد وتركيب ألواح وغرف وملاحق السندويش بنل العازلة للحرارة والصوت والمياه بدقة هندسية عالية.",srv_2_title: "مظلات سيارات وحدائق",srv_2_desc: "تفصيل وتركيب مظلات السيارات والمداخل والحدائق ومظلات الشد الإنشائي بخامات عالية الكثافة تقاوم الشمس والرطوبة.",srv_3_title: "سواتر",srv_3_desc: "تنفيذ سواتر الأحواش والأسوار الحديدية والشرائح والمجدول والقص ليزر لتوفير الخصوصية التامة والأمان والمظهر الفخم.",srv_4_title: "برجولات وجلسات خارجية",srv_4_desc: "تصميم وتنفيذ برجولات الحدائق والجلسات الخارجية حديد قص ليزر (CNC) وبديل الخشب بتصاميم عصرية فاخرة.",srv_5_title: "بيوت الشعر والمجالس",srv_5_desc: "إنشاء وتجهيز بيوت الشعر والمجالس الخارجية الملكية والزجاجية بهياكل متينة وعزل متكامل وتشطيبات راقية.",srv_6_title: "قرميد",srv_6_desc: "تركيب القراميد الفخار الإيطالي للأسقف والملاحق والواجهات مع العزل المائي والحراري لإطلالة معمارية مميزة.",srv_7_title: "لكسان",srv_7_desc: "تركيب ألواح اللكسان (البولي كربونيت) المقاومة للكسر للمظلات والسواتر والقباب والممرات بدرجات شفافية وألوان متعددة.",srv_8_title: "حلول ومنشآت خارجية",srv_8_desc: "تنفيذ التوسعات والملاحق الخارجية والهياكل المعدنية المخصصة للفلل والمباني التجارية والمشاريع في جدة.",srv_cta: "اطلب عرض سعر",about_eyebrow: "من نحن • هويتنا وخبرةتنا",about_title: "مؤسسة مظلات وسواتر الريان في جدة",about_desc: "تُعد مؤسسة مظلات وسواتر الريان في جدة (Al-Rayyan Shades & Panels - Jeddah) من المؤسسات الرائدة بخبرة تتجاوز 15 عاماً في توريد وتصميم وتركيب ألواح وغرف السندويش بنل، مظلات السيارات والحدائق، البرجولات والجلسات الخارجية، السواتر، بيوت الشعر، تغطيات اللكسان، والقرميد الفخار الإيطالي.",about_desc_2: "نجمع في أعمالنا بين الخامات العازلة عالية الجودة المقاومة لحرارة ورطوبة أجواء جدة، والإشراف الهندسي المتقن، والأسعار التنافسية المدروسة، مع التزامنا الصارم بدقة المواعيد وتقديم ضمانات رسمية معتمدة تمنح عملاءنا راحة البال التامة.",about_badge_title: "+15 عاماً من الريادة في جدة",about_badge_sub: "مؤسسة مظلات وسواتر الريان في جدة — ضمان رسمي وجودة هندسية",about_tag_1: "سندويش بنل وملاحق",about_tag_2: "مظلات سيارات وحدائق",about_tag_3: "برجولات وجلسات خارجية",about_tag_4: "سواتر خصوصية",about_tag_5: "بيوت شعر ملكية",about_tag_6: "لكسان بولي كربونيت",about_tag_7: "قرميد فخار إيطالي",about_p1_title: "مواد عازلة عالية الجودة",about_p1_desc: "ألواح سندويش بنل وخامات تظليل قياسية مقاومة للحرارة والرطوبة والصدأ.",about_p2_title: "هندسة وتنفيذ احترافي",about_p2_desc: "كوادر فنية وهندسية متمرسة لتنفيذ الهياكل والتشطيبات بأعلى درجات المتانة.",about_p3_title: "أسعار تنافسية في جدة",about_p3_desc: "عروض أسعار شفافة ومنافسة تناسب الفلل السكنية والمشاريع التجارية.",about_p4_title: "دقة المواعيد وضمان رسمي",about_p4_desc: "التزام تام بمواعيد التسليم المتفق عليها مع ضمان رسمي على المواد والتركيب.",gallery_eyebrow: "معرض أعمالنا المنفذة في جدة",gallery_title: "نماذج حقيقية من مشاريع مؤسسة الريان",gallery_subtitle: "تصفح نماذج من أعمالنا المنفذة في جدة في غرف وملاحق السندويش بنل، مظلات السيارات والشد الإنشائي، السواتر، البرجولات، بيوت الشعر، القرميد، والعشب الصناعي.",flt_all: "الكل",flt_panels: "سندويش بنل",flt_shades: "مظلات سيارات",flt_swater: "سواتر",flt_pergolas: "برجولات",flt_tents: "بيوت شعر",flt_qarmid: "قرميد",flt_decor: "ديكورات عشبية ولكسان",flt_tensile: "مظلات الشد الإنشائي",load_more_btn: "عرض المزيد من الأعمال",gal_1_title: "تركيب غرف وملاحق سندويش بنل",gal_2_title: "غرف زجاجية وسندويش بنل حديثة",gal_3_title: "مجالس خارجية فخمة مع واجهات زجاجية",gal_4_title: "توسعات وملاحق خارجية سندويش بنل",gal_5_title: "ملحق خارجي مودرن متكامل العزل",gal_6_title: "مظلات مداخل وسيارات بديل الخشب مودرن",gal_7_title: "مظلات سيارات مودرن بتصميم مسطح",gal_8_title: "مظلات شد إنشائي ومظلات شراعيه",gal_9_title: "مظلات سيارات مقوسة بقص ليزر",gal_10_title: "مظلات مواقف سيارات قماش عالي الكثافة",gal_11_title: "برجولات حدائق حديد قص ليزر (CNC)",gal_12_title: "مظلات حدائق وشاليهات بتصميم ريفي",gal_13_title: "برجولات مودرن للجلسات الخارجية والحدائق",gal_14_title: "جلسات خارجية وبرجولات حدائق فخمة",why_eyebrow: "معايير الثقة والإتقان",why_title: "لماذا يختارنا عملاؤنا في جدة؟",why_subtitle: "نلتزم في مؤسسة مظلات وسواتر الريان في جدة بتقديم أعمال تدوم طويلاً من خلال الجمع بين المواد الموثوقة والمهارة الفنية والانضباط في المواعيد.",why_1_title: "خبرة تتجاوز 15 عاماً",why_1_desc: "سجل حافل في تنفيذ مشاريع السندويش بنل والمظلات والسواتر والبرجولات والمنشآت الخارجية بكفاءة عالية.",why_2_title: "مواد عازلة عالية الجودة",why_2_desc: "نحرص على اختيار خامات ممتازة تمنح الأعمال عمراً افتراضياً طويلاً ومقاومة عالية لعوامل الطقس في جدة.",why_3_title: "إشراف هندسي وفنيون محترفون",why_3_desc: "فريق عمل متمرس يتقن تفاصيل التركيب والتثبيت والتشطيب الهندسي المتقن وفق أعلى المواصفات.",why_4_title: "دقة في المواعيد وضمان رسمي",why_4_desc: "التزام واضح بمواعيد المعاينة والبدء والتسليم المتفق عليها مع تقديم ضمان رسمي معتمد.",why_5_title: "سرعة في التركيب",why_5_desc: "إنجاز منظم وسريع في الموقع مع الحفاظ الكامل على دقة وسلامة الهيكل ونظافة المكان.",why_6_title: "اهتمام بجودة التشطيب",why_6_desc: "عناية دقيقة بالتفاصيل الفنية وسماكات الحديد والعزل المائي والحراري ونظافة التشطيب النهائي.",why_7_title: "تغطية شاملة في جدة",why_7_desc: "خدمة ميدانية سريعة في جميع أحياء جدة والحمدانية والمناطق المحيطة للمشاريع السكنية والتجارية.",why_8_title: "أسعار تنافسية في جدة",why_8_desc: "نقدم أفضل قيمة مقابل السعر في جدة مع خيارات متعددة من الخامات والسماكات تناسب ميزانيتك.",proc_eyebrow: "منهجية العمل",proc_title: "خطوات واضحة من التواصل حتى التسليم",proc_1_title: "التواصل",proc_1_desc: "تواصل معنا عبر الهاتف أو واتساب لطرح استفسارك وتحديد نوع الخدمة المطلوبة.",proc_2_title: "معاينة المتطلبات",proc_2_desc: "فهم تفاصيل المشروع والمقاسات والمواصفات المناسبة للموقع وتقديم عرض السعر المنافس.",proc_3_title: "التجهيز والتنفيذ",proc_3_desc: "تجهيز المواد المعتمدة والبدء بأعمال التركيب والتنفيذ بواسطة فنيين ذوي خبرة.",proc_4_title: "التسليم والضمان",proc_4_desc: "مراجعة جودة التنفيذ والتشطيب النهائي وتسليم العمل في الموعد المحدد مع الضمان.",rev_eyebrow: "آراء العملاء الحقيقية",rev_title: "ثقة عملائنا على خرائط Google",rev_summary_count: "بناءً على 46 تقييم على Google",reviews_map_btn: "عرض موقعنا على خرائط Google",rev_1_author: "بندر الزهراني",rev_2_author: "وليد",rev_3_author: "أبو هيثم",rev_4_author: "محمد القحطاني",rev_5_author: "عبدالله الشرعبي",quote_eyebrow: "طلب تسعير سريع",quote_title: "احصل على عرض سعر مبدئي",quote_subtitle: "أدخل بيانات مشروعك الأساسية ليتم تجهيز رسالة واتساب منظمة ومباشرة إلى فريق مؤسسة مظلات وسواتر الريان في جدة للرد عليك بالتفاصيل.",quote_bullet_1: "اختر الخدمة ونوع المشروع والمساحة التقريبية",quote_bullet_2: "تُفتح محادثة واتساب مباشرة مع الرقم الرسمي 0550044696",quote_bullet_3: "نتابع معك لتحديد المتطلبات والمقاسات الدقيقة",lbl_name: "الاسم",lbl_phone: "رقم الجوال",lbl_service: "الخدمة المطلوبة",lbl_project_type: "نوع المشروع",lbl_area: "المساحة التقريبية (اختياري)",lbl_message: "التفاصيل / الرسالة",opt_shades: "مظلات",opt_panels: "سندويش بنل",opt_screens: "سواتر",opt_pergolas: "برجولات",opt_tents: "بيوت الشعر",opt_tiles: "قراميد",opt_lexan: "لكسان",opt_other: "أخرى",opt_type_res: "سكني / فيلا",opt_type_com: "تجاري / مستودع",opt_type_annex: "ملحق / استراحة",opt_type_other: "مشروع آخر",quote_note: "طلب عرض سعر سريع: سيتم فتح تطبيق واتساب مع ملخص طلبك الجاهز للإرسال.",btn_send_wa_quote: "إرسال طلب التسعير عبر واتساب",faq_eyebrow: "إجابات وافية",faq_title: "الأسئلة الشائعة",faq_q1: "ما هي مظلات الشد الإنشائي وأين تستخدم؟",faq_a1: "هي مظلات هندسية عملاقة بدون أعمدة منتصف، تُستخدم للمشاريع الكبيرة، المدارس، المواقف التجارية، والملاعب.",faq_q2: "ما هو قماش PVC وما هي مميزاته؟",faq_a2: "هو مادة متينة، فعالة، ومقاومة للحرارة والماء بنسبة 100%، مثالية للمظلات الكبيرة.",faq_q3: "ما هو قماش PVDF وما الذي يجعله استثنائياً؟",faq_a3: "هو غشاء بوليستر مطلي بـ PVC مع طبقة فلوروبوليمر علوية تقلل التصاق الأوساخ وتقاوم الأشعة فوق البنفسجية.",faq_q4: "كم يبلغ العمر الافتراضي لمظلات PVC و PVDF؟",faq_a4: "تتميز هذه الأقمشة بعمر افتراضي طويل يتراوح بين 10 إلى 18 عاماً مع الحفاظ على ثبات اللون.",faq_q5: "هل الأقمشة المستخدمة عازلة للماء تماماً؟",faq_a5: "نعم، جميع الأقمشة التي نستخدمها في المظلات مقاومة للماء وعازلة بنسبة 100%.",faq_q6: "كيف يتم تصنيع وتفصيل الهياكل المعدنية؟",faq_a6: "نقوم بتفصيل الهياكل بدقة عالية مع الجلفنة، الدهان الحراري (الفرن)، واستخدام قواعد خرسانية مدروسة هندسياً.",faq_q7: "ما هي تقنية اللحام المستخدمة في الأقمشة؟",faq_a7: "نستخدم تقنية اللحام بالتردد العالي (HF) لضمان أقصى درجات القوة والتماسك في حواف القماش.",faq_q8: "ما هي قدرة تحمل المظلات لسرعة الرياح؟",faq_a8: "تم تصميم واختبار الشد للمظلات لتتحمل سرعة رياح تتراوح من 2800 إلى 4500 نيوتن/5سم.",faq_q9: "هل تقدمون ضماناً على مظلات الشد الإنشائي؟",faq_a9: "نعم، أنظمة مظلات PVC و PVDF المعتمدة لدينا مدعومة بضمان يمتد لـ 10 سنوات.",faq_q10: "هل يتم إرفاق شهادات منشأ للمواد المستخدمة؟",faq_a10: "بكل تأكيد، نعتمد على المواصفات الدقيقة لورقة بيانات المنتج ونرفق شهادات المنشأ لضمان الجودة.",contact_eyebrow: "قنوات التواصل المباشر",contact_title: "تواصل مع مؤسسة الريان",contact_subtitle: "يسعدنا استقبال اتصالاتكم واستفساراتكم عبر الهاتف أو واتساب أو زيارة موقعنا في جدة.",cnt_phone_lbl: "الهاتف والواتساب",cnt_addr_lbl: "العنوان",cnt_addr_val: "بجوار اسواق المزرعة، حي، جدة، السعودية",cnt_areas_lbl: "مناطق الخدمة",cnt_areas_val: "جدة • الحمدانية، جدة • المملكة العربية السعودية",cnt_wa_btn: "تواصل عبر واتساب",cnt_map_btn: "خرائط Google",cnt_insta_btn: "إنستغرام",hours_unified_badge: "دوام رسمي موحد طوال أيام الأسبوع (شاملاً يوم الجمعة)",hours_title: "أوقات العمل الرسمية",hours_sub: "نسعد بخدمتكم والرد على استفساراتكم طوال أيام الأسبوع",hours_all_week_lbl: "طوال أيام الأسبوع",hours_all_week_val: "9:00 صباحاً – 12:00 منتصف الليل",est_label: "تاريخ التأسيس: 8 فبراير 2014",est_note: "مؤسسة مظلات وسواتر الريان في جدة — السندويش بنل وبيوت الشعر.",insta_cta_title: "تابع أعمالنا على إنستغرام",insta_btn_label: "زيارة حساب إنستغرام",footer_desc: "مظلات وسواتر وسندويش بنل وحلول خارجية في جدة بخبرة تتجاوز 15 عاماً وضمان رسمي.",footer_links_title: "روابط سريعة",footer_contact_title: "بيانات التواصل",footer_copy: "© مؤسسة الريان — مظلات وسواتر الريان و السندويش بنل وبيوت الشعر. جميع الحقوق محفوظة.",mob_wa: "واتساب",mob_call: "اتصل الآن"},en: {meta_title: "Al-Rayyan Shades & Panels - Jeddah | Sandwich Panels, Shades & Pergolas",meta_desc: "Al-Rayyan Shades & Panels - Jeddah brings 15+ years of industry-leading experience supplying and installing Sandwich Panels, Car & Garden Shades, Pergolas, Fences, Traditional Tents, Lexan, and Roof Tiles with official warranties.",brand_short: "Al-Rayyan",brand_full: "Al-Rayyan — Sandwich Panels, Shades & Outdoor Structures",brand_tagline: "Sandwich Panels • Shades • Pergolas",nav_home: "Home",nav_services: "Services",nav_projects: "Projects",nav_why: "Why Us",nav_about: "About",nav_faq: "FAQ",nav_contact: "Contact",header_cta: "Request a Quote",hero_badge: "Al-Rayyan Shades & Panels - Jeddah • 15+ Years Experience",hero_h1: "Premium Shades, Sandwich Panels & Outdoor Structures in Jeddah",hero_sub: "Specialists in sandwich panels, shades, screens, pergolas, traditional tents and roofing solutions, backed by more than 15 years of experience, quality materials and skilled workmanship.",hero_cta_wa: "Get a Quote on WhatsApp",hero_cta_call: "Call Now",hero_trust_line: "15+ Years of Experience • Serving Jeddah • Official Warranties",trust_reviews_label: "46 Google Reviews",trust_years_unit: "Years",trust_exp_label: "Industry-Leading Experience",trust_since_prefix: "Since",trust_serving_label: "Serving Clients in Jeddah",services_eyebrow: "Specialized Solutions in Jeddah",services_title: "Complete Outdoor & Building Solutions",services_subtitle: "We engineer and install insulated sandwich panels, architectural shades, privacy screens, and custom outdoor structures built for Jeddah's climate.",srv_1_title: "Sandwich Panels",srv_1_desc: "Supply and installation of thermal and acoustic insulated sandwich panel rooms, annexes, warehouses, and roofing.",srv_2_title: "Car & Garden Shades",srv_2_desc: "Custom-engineered car parking shades, entrance canopies, and tensile structures crafted from high-density UV-resistant materials.",srv_3_title: "Fences & Privacy Barriers",srv_3_desc: "Louvered metal, braided steel, and laser-cut architectural privacy barriers designed for perimeter security and refined aesthetics.",srv_4_title: "Pergolas & Outdoor Seating",srv_4_desc: "Bespoke CNC laser-cut metal and wood-style outdoor pergolas for courtyards, gardens, and rooftops.",srv_5_title: "Traditional Tents & Majlis",srv_5_desc: "Authentic royal tents (Bayt Al-Sha'ar) and luxury glass outdoor majlis rooms built with full insulation.",srv_6_title: "Roof Tiles (Qarmid)",srv_6_desc: "Authentic Italian terracotta clay roof tiles installed with full thermal and waterproof sub-layers for villas and annexes.",srv_7_title: "Polycarbonate / Lexan",srv_7_desc: "Impact-resistant polycarbonate Lexan roofing, skylights, and privacy panels in frosted, bronze, and clear finishes.",srv_8_title: "Outdoor Extensions",srv_8_desc: "Custom structural steelwork, backyard rooms, and tailored outdoor building extensions for residential and commercial sites.",srv_cta: "Request a Quote",about_eyebrow: "About Us • Our Heritage & Expertise",about_title: "Al-Rayyan Shades & Panels - Jeddah",about_desc: "Al-Rayyan Shades & Panels - Jeddah (مؤسسة مظلات وسواتر الريان في جدة) brings over 15 years of industry-leading experience in supplying and installing insulated Sandwich Panels, Car & Garden Shades, Pergolas & Outdoor Seating, Fences & Barriers, Traditional Tents, Lexan Polycarbonate, and Italian Clay Roof Tiles.",about_desc_2: "Every structure we build combines high-grade insulated materials engineered for Jeddah's climate, expert structural engineering, competitive local pricing, punctual delivery, and official written warranties.",about_badge_title: "15+ Years Leading in Jeddah",about_badge_sub: "Al-Rayyan Shades & Panels - Jeddah • Official Warranties",about_tag_1: "Sandwich Panels & Rooms",about_tag_2: "Car & Garden Shades",about_tag_3: "Pergolas & Outdoor Seating",about_tag_4: "Fences & Barriers",about_tag_5: "Traditional Tents",about_tag_6: "Lexan Polycarbonate",about_tag_7: "Roof Tiles (Qarmid)",about_p1_title: "High-Grade Insulated Materials",about_p1_desc: "Premium thermal-insulated panels and UV-stabilized fabrics engineered for extreme durability.",about_p2_title: "Expert Engineering",about_p2_desc: "Skilled technical teams delivering precision steel fabrication, anchoring, and architectural finishing.",about_p3_title: "Competitive Prices in Jeddah",about_p3_desc: "Transparent, market-leading pricing tailored for residential villas and commercial projects.",about_p4_title: "Punctual Delivery & Warranties",about_p4_desc: "Strict adherence to agreed handover schedules backed by official workmanship and material warranties.",gallery_eyebrow: "Real Executed Projects in Jeddah",gallery_title: "Al-Rayyan Project Portfolio",gallery_subtitle: "Explore our executed projects across Sandwich Panels, Car & Tensile Shades, Privacy Screens, Pergolas, Traditional Tents, Qarmid, and Artificial Grass in Jeddah.",flt_all: "All",flt_panels: "Sandwich Panels",flt_shades: "Car Shades",flt_swater: "Privacy Screens",flt_pergolas: "Pergolas",flt_tents: "Traditional Tents",flt_qarmid: "Qarmid Roof Tiles",flt_decor: "Grass & Lexan Decor",flt_tensile: "Tensile Shades",load_more_btn: "Load More Projects",gal_1_title: "Sandwich Panel Room Construction",gal_2_title: "Modern Glass & Sandwich Panel Room",gal_3_title: "Luxury Outdoor Glass Majlis",gal_4_title: "Sandwich Panel Exterior Extension",gal_5_title: "Modern Insulated Backyard Room",gal_6_title: "Modern Wood-Style Car & Entrance Shade",gal_7_title: "Modern Flat-Roof Car Parking Shade",gal_8_title: "Tensile & Sail Fabric Shades",gal_9_title: "Curved Car Shade with Laser-Cut Design",gal_10_title: "High-Density Fabric Car Parking Shades",gal_11_title: "CNC Laser-Cut Metal Garden Pergola",gal_12_title: "Rustic Bamboo-Style Garden Umbrella",gal_13_title: "Luxury Modern Garden Seating Pergola",gal_14_title: "Luxury Outdoor Seating & Garden Pergola",why_eyebrow: "Built on Trust & Precision",why_title: "Why Clients in Jeddah Choose Al-Rayyan",why_subtitle: "We combine high-grade insulated materials, expert engineering, competitive pricing, and disciplined scheduling to deliver lasting structures.",why_1_title: "15+ Years of Experience",why_1_desc: "Proven track record executing sandwich panels, shades, screens, and outdoor structures across Jeddah.",why_2_title: "High-Grade Insulated Materials",why_2_desc: "Carefully selected structural steel, insulated panels, and weather-resistant membranes built for long life.",why_3_title: "Expert Engineering & Teams",why_3_desc: "Skilled installation technicians focused on structural integrity, clean joints, and refined finishing.",why_4_title: "Punctual Delivery & Warranty",why_4_desc: "Clear commitment to agreed timelines backed by official material and installation warranties.",why_5_title: "Fast On-Site Installation",why_5_desc: "Efficient, well-organized on-site execution without compromising structural precision.",why_6_title: "Superior Workmanship",why_6_desc: "Close attention to steel gauges, thermal/waterproof sealing, and clean final detailing.",why_7_title: "Serving All of Jeddah",why_7_desc: "Dedicated field coverage across Jeddah, Al Hamdaniya, and surrounding areas in Saudi Arabia.",why_8_title: "Competitive Prices in Jeddah",why_8_desc: "Outstanding value with tailored material specifications to suit residential and commercial budgets.",proc_eyebrow: "How We Work",proc_title: "A Clear 4-Step Execution Process",proc_1_title: "Contact",proc_1_desc: "Reach out via phone or WhatsApp to share your inquiry and the type of structure you need.",proc_2_title: "Site & Spec Review",proc_2_desc: "We review your project dimensions, site conditions, and material preferences to prepare a competitive quote.",proc_3_title: "Fabrication & Installation",proc_3_desc: "Materials are fabricated and installed on-site by our experienced engineering and technical team.",proc_4_title: "Handover & Warranty",proc_4_desc: "Final inspection of workmanship and clean handover on the agreed schedule with official warranty.",rev_eyebrow: "Verified Client Feedback",rev_title: "Trusted by Clients on Google Maps",rev_summary_count: "Based on 46 Google Reviews",reviews_map_btn: "View us on Google Maps",rev_1_author: "Bandar Al-Zahrani",rev_2_author: "Waleed",rev_3_author: "Abu Haitham",rev_4_author: "Mohammed Al-Qahtani",rev_5_author: "Abdullah Al-Sharabi",quote_eyebrow: "Quick Quote Request",quote_title: "Get a Quick Quote",quote_subtitle: "Enter your project details below to generate a structured WhatsApp inquiry sent directly to Al-Rayyan's team in Jeddah.",quote_bullet_1: "Select your desired service, project type, and approximate area",quote_bullet_2: "Opens a direct WhatsApp chat with our official number +966 55 004 4696",quote_bullet_3: "Our team follows up directly to confirm specifications and measurements",lbl_name: "Name",lbl_phone: "Phone",lbl_service: "Service",lbl_project_type: "Project Type",lbl_area: "Approximate Area (Optional)",lbl_message: "Message / Details",opt_shades: "Shades & Canopies",opt_panels: "Sandwich Panels",opt_screens: "Privacy Screens (Sawaatir)",opt_pergolas: "Pergolas",opt_tents: "Traditional Tents",opt_tiles: "Roof Tiles (Qarmid)",opt_lexan: "Polycarbonate / Lexan",opt_other: "Other Outdoor Structure",opt_type_res: "Residential / Villa",opt_type_com: "Commercial / Warehouse",opt_type_annex: "Annex / Majlis",opt_type_other: "Other Project",quote_note: "Quick Quote Request: Submitting opens WhatsApp with your pre-filled project details.",btn_send_wa_quote: "Send Quick Quote Request on WhatsApp",faq_eyebrow: "Common Questions",faq_title: "Frequently Asked Questions",faq_q1: "What are Tensile Shades and where are they used?",faq_a1: "They are giant architectural shades without center pillars, used for large projects, schools, commercial parking, and stadiums.",faq_q2: "What is PVC fabric and what are its features?",faq_a2: "It is a highly durable, efficient, 100% heat and waterproof material ideal for large shades.",faq_q3: "What is PVDF fabric and what makes it exceptional?",faq_a3: "A PVC-coated polyester membrane with a top fluoropolymer layer that repels dirt and resists UV rays.",faq_q4: "What is the lifespan of PVC and PVDF shades?",faq_a4: "These fabrics boast a long lifespan ranging from 10 to 18 years while maintaining color stability.",faq_q5: "Are the fabrics used completely waterproof?",faq_a5: "Yes, all fabrics we use in our shades are 100% waterproof and insulated.",faq_q6: "How are the metal structures manufactured and detailed?",faq_a6: "We detail structures with high precision, including galvanization, oven-baked paint, and engineered concrete bases.",faq_q7: "What welding technology is used for the fabrics?",faq_a7: "We use High-Frequency (HF) welding technology to ensure maximum strength and cohesion at the fabric edges.",faq_q8: "What is the wind resistance capacity of the shades?",faq_a8: "The shades are designed and tension-tested to withstand wind speeds ranging from 2800 to 4500 N/5cm.",faq_q9: "Do you offer a warranty on tensile shades?",faq_a9: "Yes, our certified PVC and PVDF shade systems are backed by a 10-year warranty.",faq_q10: "Are certificates of origin provided for the materials used?",faq_a10: "Absolutely, we rely on precise product datasheets and provide certificates of origin to guarantee quality.",contact_eyebrow: "Direct Contact Channels",contact_title: "Contact Al-Rayyan",contact_subtitle: "Reach out to our team by phone, WhatsApp, or visit our location in Jeddah.",cnt_phone_lbl: "Phone & WhatsApp",cnt_addr_lbl: "Address",cnt_addr_val: "Next to Al Mazraa Markets, Jeddah, Saudi Arabia (بجوار اسواق المزرعة، حي، جدة)",cnt_areas_lbl: "Service Areas",cnt_areas_val: "Jeddah • Al Hamdaniya, Jeddah • Saudi Arabia",cnt_wa_btn: "WhatsApp Us",cnt_map_btn: "Google Maps",cnt_insta_btn: "Instagram",hours_unified_badge: "Unified Schedule All Week (Including Friday)",hours_title: "Business Hours",hours_sub: "We are available throughout the week to assist with your project inquiries",hours_all_week_lbl: "Monday – Sunday",hours_all_week_val: "9:00 AM – 12:00 AM",est_label: "Established: 8 February 2014",est_note: "Al-Rayyan Shades & Panels - Jeddah — Sandwich Panels, Shades & Outdoor Structures.",insta_cta_title: "Follow Our Work on Instagram",insta_btn_label: "Visit Instagram Profile",footer_desc: "Premium shades, sandwich panels and outdoor structure solutions in Jeddah with 15+ years of experience and official warranties.",footer_links_title: "Quick Links",footer_contact_title: "Contact Details",footer_copy: "© Al-Rayyan — Sandwich Panels, Shades & Outdoor Structures. All rights reserved.",mob_wa: "WhatsApp",mob_call: "Call Now"}};
+(function() {const I18N = {ar: {meta_title: "مظلات وسندويش بنل جدة | مؤسسة مظلات وسواتر الريان في جدة",meta_desc: "مؤسسة مظلات وسواتر الريان في جدة — خبرة تتجاوز 15 عاماً في توريد وتركيب السندويش بنل، مظلات السيارات والحدائق، البرجولات، السواتر، بيوت الشعر، اللكسان، والقرميد بأعلى معايير الجودة والضمان الرسمي.",brand_short: "مؤسسة الريان",brand_full: "مظلات وسواتر الريان و السندويش بنل وبيوت الشعر",brand_tagline: "سندويش بنل • مظلات • سواتر",nav_home: "الرئيسية",nav_services: "خدماتنا",nav_projects: "أعمالنا",nav_why: "لماذا نحن",nav_about: "من نحن",nav_faq: "الأسئلة الشائعة",nav_contact: "تواصل معنا",header_cta: "اطلب عرض سعر",hero_badge: "مظلات الريان لسواتر و البرجولات والسندويش البنل و القرميد والهياكل الانشائية",hero_h1: "مظلات الريان للسواتر والبرجولات والسندويش بنل والقرميد والهياكل الإنشائية",hero_sub: "متخصصون في السندويش بنل والمظلات والسواتر والبرجولات وبيوت الشعر والقراميد، بخبرة تتجاوز 15 عاماً واستخدام أفضل المواد وفنيين ذوي خبرة عالية.",hero_cta_wa: "اطلب عرض سعر عبر واتساب",hero_cta_call: "اتصل الآن",hero_trust_line: "خبرة تتجاوز 15 عاماً • خدمة في جدة • جودة في التنفيذ وضمان رسمي",trust_reviews_label: "46 تقييم على Google",trust_years_unit: "عاماً",trust_exp_label: "خبرة رائدة في جدة",trust_since_prefix: "منذ",trust_serving_label: "في خدمة عملائنا بجدة",services_eyebrow: "خدماتنا المتخصصة في جدة",services_title: "توريد وتركيب سندويش بنل وجميع أنواع المظلات والبرجولات وبيوت الشعر والقراميد والديكورات العشبية الخارجية",services_subtitle: "تنفيذ أعمال السندويش بنل والمظلات والسواتر والبرجولات. في مؤسسة الريان نجمع بين التصاميم العصرية وجودة المواد العالية، ونقدم نموذجاً راقياً شكلاً ولوناً مع لمسة أنيقة تعطي المكان تميزاً. نحرص دائماً على اختيار أفضل المواد طويلة الأمد المقاومة لجميع الظروف الجوية وذات عمر افتراضي طويل مع الضمان.",srv_1_title: "سندويش بنل",srv_1_desc: "توريد وتركيب ألواح وغرف وملاحق السندويش بنل العازلة للحرارة والصوت والمياه بدقة هندسية عالية.",srv_2_title: "مظلات سيارات وحدائق",srv_2_desc: "تفصيل وتركيب مظلات السيارات والمداخل والحدائق ومظلات الشد الإنشائي بخامات عالية الكثافة تقاوم الشمس والرطوبة.",srv_3_title: "سواتر",srv_3_desc: "تنفيذ سواتر الأحواش والأسوار الحديدية والشرائح والمجدول والقص ليزر لتوفير الخصوصية التامة والأمان والمظهر الفخم.",srv_4_title: "برجولات وجلسات خارجية",srv_4_desc: "تصميم وتنفيذ برجولات الحدائق والجلسات الخارجية حديد قص ليزر (CNC) وبديل الخشب بتصاميم عصرية فاخرة.",srv_5_title: "بيوت الشعر والمجالس",srv_5_desc: "إنشاء وتجهيز بيوت الشعر والمجالس الخارجية الملكية والزجاجية بهياكل متينة وعزل متكامل وتشطيبات راقية.",srv_6_title: "قرميد",srv_6_desc: "تركيب القراميد الفخار الإيطالي للأسقف والملاحق والواجهات مع العزل المائي والحراري لإطلالة معمارية مميزة.",srv_7_title: "لكسان",srv_7_desc: "تركيب ألواح اللكسان (البولي كربونيت) المقاومة للكسر للمظلات والسواتر والقباب والممرات بدرجات شفافية وألوان متعددة.",srv_8_title: "حلول ومنشآت خارجية",srv_8_desc: "تنفيذ التوسعات والملاحق الخارجية والهياكل المعدنية المخصصة للفلل والمباني التجارية والمشاريع في جدة.",srv_cta: "اطلب عرض سعر",about_eyebrow: "من نحن • هويتنا وخبرةتنا",about_title: "مؤسسة مظلات وسواتر الريان في جدة",about_desc: "تُعد مؤسسة مظلات وسواتر الريان في جدة (Al-Rayyan Shades & Panels - Jeddah) من المؤسسات الرائدة بخبرة تتجاوز 15 عاماً في توريد وتصميم وتركيب ألواح وغرف السندويش بنل، مظلات السيارات والحدائق، البرجولات والجلسات الخارجية، السواتر، بيوت الشعر، تغطيات اللكسان، والقرميد الفخار الإيطالي.",about_desc_2: "نجمع في أعمالنا بين الخامات العازلة عالية الجودة المقاومة لحرارة ورطوبة أجواء جدة، والإشراف الهندسي المتقن، والأسعار التنافسية المدروسة، مع التزامنا الصارم بدقة المواعيد وتقديم ضمانات رسمية معتمدة تمنح عملاءنا راحة البال التامة.",about_badge_title: "+15 عاماً من الريادة في جدة",about_badge_sub: "مؤسسة مظلات وسواتر الريان في جدة — ضمان رسمي وجودة هندسية",about_tag_1: "سندويش بنل وملاحق",about_tag_2: "مظلات سيارات وحدائق",about_tag_3: "برجولات وجلسات خارجية",about_tag_4: "سواتر خصوصية",about_tag_5: "بيوت شعر ملكية",about_tag_6: "لكسان بولي كربونيت",about_tag_7: "قرميد فخار إيطالي",about_p1_title: "مواد عازلة عالية الجودة",about_p1_desc: "ألواح سندويش بنل وخامات تظليل قياسية مقاومة للحرارة والرطوبة والصدأ.",about_p2_title: "هندسة وتنفيذ احترافي",about_p2_desc: "كوادر فنية وهندسية متمرسة لتنفيذ الهياكل والتشطيبات بأعلى درجات المتانة.",about_p3_title: "أسعار تنافسية في جدة",about_p3_desc: "عروض أسعار شفافة ومنافسة تناسب الفلل السكنية والمشاريع التجارية.",about_p4_title: "دقة المواعيد وضمان رسمي",about_p4_desc: "التزام تام بمواعيد التسليم المتفق عليها مع ضمان رسمي على المواد والتركيب.",gallery_eyebrow: "معرض أعمالنا المنفذة في جدة",gallery_title: "نماذج حقيقية من مشاريع مؤسسة الريان",gallery_subtitle: "تصفح نماذج من أعمالنا المنفذة في جدة في غرف وملاحق السندويش بنل، مظلات السيارات والشد الإنشائي، السواتر، البرجولات، بيوت الشعر، القرميد، والعشب الصناعي.",flt_all: "الكل",flt_panels: "سندويش بنل",flt_shades: "مظلات سيارات",flt_swater: "سواتر",flt_pergolas: "برجولات",flt_tents: "بيوت شعر",flt_qarmid: "قرميد",flt_decor: "ديكورات عشبية ولكسان",flt_tensile: "مظلات الشد الإنشائي",load_more_btn: "عرض المزيد من الأعمال",gal_1_title: "تركيب غرف وملاحق سندويش بنل",gal_2_title: "غرف زجاجية وسندويش بنل حديثة",gal_3_title: "مجالس خارجية فخمة مع واجهات زجاجية",gal_4_title: "توسعات وملاحق خارجية سندويش بنل",gal_5_title: "ملحق خارجي مودرن متكامل العزل",gal_6_title: "مظلات مداخل وسيارات بديل الخشب مودرن",gal_7_title: "مظلات سيارات مودرن بتصميم مسطح",gal_8_title: "مظلات شد إنشائي ومظلات شراعيه",gal_9_title: "مظلات سيارات مقوسة بقص ليزر",gal_10_title: "مظلات مواقف سيارات قماش عالي الكثافة",gal_11_title: "برجولات حدائق حديد قص ليزر (CNC)",gal_12_title: "مظلات حدائق وشاليهات بتصميم ريفي",gal_13_title: "برجولات مودرن للجلسات الخارجية والحدائق",gal_14_title: "جلسات خارجية وبرجولات حدائق فخمة",why_eyebrow: "معايير الثقة والإتقان",why_title: "لماذا يختارنا عملاؤنا في جدة؟",why_subtitle: "نلتزم في مؤسسة مظلات وسواتر الريان في جدة بتقديم أعمال تدوم طويلاً من خلال الجمع بين المواد الموثوقة والمهارة الفنية والانضباط في المواعيد.",why_1_title: "خبرة تتجاوز 15 عاماً",why_1_desc: "سجل حافل في تنفيذ مشاريع السندويش بنل والمظلات والسواتر والبرجولات والمنشآت الخارجية بكفاءة عالية.",why_2_title: "مواد عازلة عالية الجودة",why_2_desc: "نحرص على اختيار خامات ممتازة تمنح الأعمال عمراً افتراضياً طويلاً ومقاومة عالية لعوامل الطقس في جدة.",why_3_title: "إشراف هندسي وفنيون محترفون",why_3_desc: "فريق عمل متمرس يتقن تفاصيل التركيب والتثبيت والتشطيب الهندسي المتقن وفق أعلى المواصفات.",why_4_title: "دقة في المواعيد وضمان رسمي",why_4_desc: "التزام واضح بمواعيد المعاينة والبدء والتسليم المتفق عليها مع تقديم ضمان رسمي معتمد.",why_5_title: "سرعة في التركيب",why_5_desc: "إنجاز منظم وسريع في الموقع مع الحفاظ الكامل على دقة وسلامة الهيكل ونظافة المكان.",why_6_title: "اهتمام بجودة التشطيب",why_6_desc: "عناية دقيقة بالتفاصيل الفنية وسماكات الحديد والعزل المائي والحراري ونظافة التشطيب النهائي.",why_7_title: "تغطية شاملة في جدة",why_7_desc: "خدمة ميدانية سريعة في جميع أحياء جدة والحمدانية والمناطق المحيطة للمشاريع السكنية والتجارية.",why_8_title: "أسعار تنافسية في جدة",why_8_desc: "نقدم أفضل قيمة مقابل السعر في جدة مع خيارات متعددة من الخامات والسماكات تناسب ميزانيتك.",proc_eyebrow: "منهجية العمل",proc_title: "خطوات واضحة من التواصل حتى التسليم",proc_1_title: "التواصل",proc_1_desc: "تواصل معنا عبر الهاتف أو واتساب لطرح استفسارك وتحديد نوع الخدمة المطلوبة.",proc_2_title: "معاينة المتطلبات",proc_2_desc: "فهم تفاصيل المشروع والمقاسات والمواصفات المناسبة للموقع وتقديم عرض السعر المنافس.",proc_3_title: "التجهيز والتنفيذ",proc_3_desc: "تجهيز المواد المعتمدة والبدء بأعمال التركيب والتنفيذ بواسطة فنيين ذوي خبرة.",proc_4_title: "التسليم والضمان",proc_4_desc: "مراجعة جودة التنفيذ والتشطيب النهائي وتسليم العمل في الموعد المحدد مع الضمان.",rev_eyebrow: "آراء العملاء الحقيقية",rev_title: "ثقة عملائنا على خرائط Google",rev_summary_count: "بناءً على 46 تقييم على Google",reviews_map_btn: "عرض موقعنا على خرائط Google",rev_1_author: "بندر الزهراني",rev_2_author: "وليد",rev_3_author: "أبو هيثم",rev_4_author: "محمد القحطاني",rev_5_author: "عبدالله الشرعبي",quote_eyebrow: "طلب تسعير سريع",quote_title: "احصل على عرض سعر مبدئي",quote_subtitle: "أدخل بيانات مشروعك الأساسية ليتم تجهيز رسالة واتساب منظمة ومباشرة إلى فريق مؤسسة مظلات وسواتر الريان في جدة للرد عليك بالتفاصيل.",quote_bullet_1: "اختر الخدمة ونوع المشروع والمساحة التقريبية",quote_bullet_2: "تُفتح محادثة واتساب مباشرة مع الرقم الرسمي 0550044696",quote_bullet_3: "نتابع معك لتحديد المتطلبات والمقاسات الدقيقة",lbl_name: "الاسم",lbl_phone: "رقم الجوال",lbl_service: "الخدمة المطلوبة",lbl_project_type: "نوع المشروع",lbl_area: "المساحة التقريبية (اختياري)",lbl_message: "التفاصيل / الرسالة",opt_shades: "مظلات",opt_panels: "سندويش بنل",opt_screens: "سواتر",opt_pergolas: "برجولات",opt_tents: "بيوت الشعر",opt_tiles: "قراميد",opt_lexan: "لكسان",opt_other: "أخرى",opt_type_res: "سكني / فيلا",opt_type_com: "تجاري / مستودع",opt_type_annex: "ملحق / استراحة",opt_type_other: "مشروع آخر",quote_note: "طلب عرض سعر سريع: سيتم فتح تطبيق واتساب مع ملخص طلبك الجاهز للإرسال.",btn_send_wa_quote: "إرسال طلب التسعير عبر واتساب",faq_eyebrow: "إجابات وافية",faq_title: "الأسئلة الشائعة",faq_q1: "ما هي مظلات الشد الإنشائي وأين تستخدم؟",faq_a1: "هي مظلات هندسية عملاقة بدون أعمدة منتصف، تُستخدم للمشاريع الكبيرة، المدارس، المواقف التجارية، والملاعب.",faq_q2: "ما هو قماش PVC وما هي مميزاته؟",faq_a2: "هو مادة متينة، فعالة، ومقاومة للحرارة والماء بنسبة 100%، مثالية للمظلات الكبيرة.",faq_q3: "ما هو قماش PVDF وما الذي يجعله استثنائياً؟",faq_a3: "هو غشاء بوليستر مطلي بـ PVC مع طبقة فلوروبوليمر علوية تقلل التصاق الأوساخ وتقاوم الأشعة فوق البنفسجية.",faq_q4: "كم يبلغ العمر الافتراضي لمظلات PVC و PVDF؟",faq_a4: "تتميز هذه الأقمشة بعمر افتراضي طويل يتراوح بين 10 إلى 18 عاماً مع الحفاظ على ثبات اللون.",faq_q5: "هل الأقمشة المستخدمة عازلة للماء تماماً؟",faq_a5: "نعم، جميع الأقمشة التي نستخدمها في المظلات مقاومة للماء وعازلة بنسبة 100%.",faq_q6: "كيف يتم تصنيع وتفصيل الهياكل المعدنية؟",faq_a6: "نقوم بتفصيل الهياكل بدقة عالية مع الجلفنة، الدهان الحراري (الفرن)، واستخدام قواعد خرسانية مدروسة هندسياً.",faq_q7: "ما هي تقنية اللحام المستخدمة في الأقمشة؟",faq_a7: "نستخدم تقنية اللحام بالتردد العالي (HF) لضمان أقصى درجات القوة والتماسك في حواف القماش.",faq_q8: "ما هي قدرة تحمل المظلات لسرعة الرياح؟",faq_a8: "تم تصميم واختبار الشد للمظلات لتتحمل سرعة رياح تتراوح من 2800 إلى 4500 نيوتن/5سم.",faq_q9: "هل تقدمون ضماناً على مظلات الشد الإنشائي؟",faq_a9: "نعم، أنظمة مظلات PVC و PVDF المعتمدة لدينا مدعومة بضمان يمتد لـ 10 سنوات.",faq_q10: "هل يتم إرفاق شهادات منشأ للمواد المستخدمة؟",faq_a10: "بكل تأكيد، نعتمد على المواصفات الدقيقة لورقة بيانات المنتج ونرفق شهادات المنشأ لضمان الجودة.",contact_eyebrow: "قنوات التواصل المباشر",contact_title: "تواصل مع مؤسسة الريان",contact_subtitle: "يسعدنا استقبال اتصالاتكم واستفساراتكم عبر الهاتف أو واتساب أو زيارة موقعنا في جدة.",cnt_phone_lbl: "الهاتف والواتساب",cnt_addr_lbl: "العنوان",cnt_addr_val: "بجوار اسواق المزرعة، حي، جدة، السعودية",cnt_areas_lbl: "مناطق الخدمة",cnt_areas_val: "جدة • الحمدانية، جدة • المملكة العربية السعودية",cnt_wa_btn: "تواصل عبر واتساب",cnt_map_btn: "خرائط Google",cnt_insta_btn: "إنستغرام",hours_unified_badge: "دوام رسمي موحد طوال أيام الأسبوع (شاملاً يوم الجمعة)",hours_title: "أوقات العمل الرسمية",hours_sub: "نسعد بخدمتكم والرد على استفساراتكم طوال أيام الأسبوع",hours_all_week_lbl: "طوال أيام الأسبوع",hours_all_week_val: "9:00 صباحاً – 12:00 منتصف الليل",hours_feat_1: "استجابة سريعة واستقبال الاستفسارات عبر واتساب طوال فترة العمل",hours_feat_2: "معاينة ورفع مقاسات ميدانية في جميع أحياء ومناطق جدة",est_label: "تاريخ التأسيس: 8 فبراير 2014",est_note: "مؤسسة مظلات وسواتر الريان في جدة — السندويش بنل وبيوت الشعر.",insta_cta_title: "تابع أعمالنا على إنستغرام",insta_btn_label: "زيارة حساب إنستغرام",footer_desc: "مظلات وسواتر وسندويش بنل وحلول خارجية في جدة بخبرة تتجاوز 15 عاماً وضمان رسمي.",footer_links_title: "روابط سريعة",footer_contact_title: "بيانات التواصل",footer_copy: "© مؤسسة الريان — مظلات وسواتر الريان و السندويش بنل وبيوت الشعر. جميع الحقوق محفوظة.",mob_wa: "واتساب",mob_call: "اتصل الآن"},en: {meta_title: "Al-Rayyan Shades & Panels - Jeddah | Sandwich Panels, Shades & Pergolas",meta_desc: "Al-Rayyan Shades & Panels - Jeddah brings 15+ years of industry-leading experience supplying and installing Sandwich Panels, Car & Garden Shades, Pergolas, Fences, Traditional Tents, Lexan, and Roof Tiles with official warranties.",brand_short: "Al-Rayyan",brand_full: "Al-Rayyan — Sandwich Panels, Shades & Outdoor Structures",brand_tagline: "Sandwich Panels • Shades • Pergolas",nav_home: "Home",nav_services: "Services",nav_projects: "Projects",nav_why: "Why Us",nav_about: "About",nav_faq: "FAQ",nav_contact: "Contact",header_cta: "Request a Quote",hero_badge: "Al-Rayyan Shades & Panels - Jeddah • 15+ Years Experience",hero_h1: "Premium Shades, Sandwich Panels & Outdoor Structures in Jeddah",hero_sub: "Specialists in sandwich panels, shades, screens, pergolas, traditional tents and roofing solutions, backed by more than 15 years of experience, quality materials and skilled workmanship.",hero_cta_wa: "Get a Quote on WhatsApp",hero_cta_call: "Call Now",hero_trust_line: "15+ Years of Experience • Serving Jeddah • Official Warranties",trust_reviews_label: "46 Google Reviews",trust_years_unit: "Years",trust_exp_label: "Industry-Leading Experience",trust_since_prefix: "Since",trust_serving_label: "Serving Clients in Jeddah",services_eyebrow: "Specialized Solutions in Jeddah",services_title: "Complete Outdoor & Building Solutions",services_subtitle: "We engineer and install insulated sandwich panels, architectural shades, privacy screens, and custom outdoor structures built for Jeddah's climate.",srv_1_title: "Sandwich Panels",srv_1_desc: "Supply and installation of thermal and acoustic insulated sandwich panel rooms, annexes, warehouses, and roofing.",srv_2_title: "Car & Garden Shades",srv_2_desc: "Custom-engineered car parking shades, entrance canopies, and tensile structures crafted from high-density UV-resistant materials.",srv_3_title: "Fences & Privacy Barriers",srv_3_desc: "Louvered metal, braided steel, and laser-cut architectural privacy barriers designed for perimeter security and refined aesthetics.",srv_4_title: "Pergolas & Outdoor Seating",srv_4_desc: "Bespoke CNC laser-cut metal and wood-style outdoor pergolas for courtyards, gardens, and rooftops.",srv_5_title: "Traditional Tents & Majlis",srv_5_desc: "Authentic royal tents (Bayt Al-Sha'ar) and luxury glass outdoor majlis rooms built with full insulation.",srv_6_title: "Roof Tiles (Qarmid)",srv_6_desc: "Authentic Italian terracotta clay roof tiles installed with full thermal and waterproof sub-layers for villas and annexes.",srv_7_title: "Polycarbonate / Lexan",srv_7_desc: "Impact-resistant polycarbonate Lexan roofing, skylights, and privacy panels in frosted, bronze, and clear finishes.",srv_8_title: "Outdoor Extensions",srv_8_desc: "Custom structural steelwork, backyard rooms, and tailored outdoor building extensions for residential and commercial sites.",srv_cta: "Request a Quote",about_eyebrow: "About Us • Our Heritage & Expertise",about_title: "Al-Rayyan Shades & Panels - Jeddah",about_desc: "Al-Rayyan Shades & Panels - Jeddah (مؤسسة مظلات وسواتر الريان في جدة) brings over 15 years of industry-leading experience in supplying and installing insulated Sandwich Panels, Car & Garden Shades, Pergolas & Outdoor Seating, Fences & Barriers, Traditional Tents, Lexan Polycarbonate, and Italian Clay Roof Tiles.",about_desc_2: "Every structure we build combines high-grade insulated materials engineered for Jeddah's climate, expert structural engineering, competitive local pricing, punctual delivery, and official written warranties.",about_badge_title: "15+ Years Leading in Jeddah",about_badge_sub: "Al-Rayyan Shades & Panels - Jeddah • Official Warranties",about_tag_1: "Sandwich Panels & Rooms",about_tag_2: "Car & Garden Shades",about_tag_3: "Pergolas & Outdoor Seating",about_tag_4: "Fences & Barriers",about_tag_5: "Traditional Tents",about_tag_6: "Lexan Polycarbonate",about_tag_7: "Roof Tiles (Qarmid)",about_p1_title: "High-Grade Insulated Materials",about_p1_desc: "Premium thermal-insulated panels and UV-stabilized fabrics engineered for extreme durability.",about_p2_title: "Expert Engineering",about_p2_desc: "Skilled technical teams delivering precision steel fabrication, anchoring, and architectural finishing.",about_p3_title: "Competitive Prices in Jeddah",about_p3_desc: "Transparent, market-leading pricing tailored for residential villas and commercial projects.",about_p4_title: "Punctual Delivery & Warranties",about_p4_desc: "Strict adherence to agreed handover schedules backed by official workmanship and material warranties.",gallery_eyebrow: "Real Executed Projects in Jeddah",gallery_title: "Al-Rayyan Project Portfolio",gallery_subtitle: "Explore our executed projects across Sandwich Panels, Car & Tensile Shades, Privacy Screens, Pergolas, Traditional Tents, Qarmid, and Artificial Grass in Jeddah.",flt_all: "All",flt_panels: "Sandwich Panels",flt_shades: "Car Shades",flt_swater: "Privacy Screens",flt_pergolas: "Pergolas",flt_tents: "Traditional Tents",flt_qarmid: "Qarmid Roof Tiles",flt_decor: "Grass & Lexan Decor",flt_tensile: "Tensile Shades",load_more_btn: "Load More Projects",gal_1_title: "Sandwich Panel Room Construction",gal_2_title: "Modern Glass & Sandwich Panel Room",gal_3_title: "Luxury Outdoor Glass Majlis",gal_4_title: "Sandwich Panel Exterior Extension",gal_5_title: "Modern Insulated Backyard Room",gal_6_title: "Modern Wood-Style Car & Entrance Shade",gal_7_title: "Modern Flat-Roof Car Parking Shade",gal_8_title: "Tensile & Sail Fabric Shades",gal_9_title: "Curved Car Shade with Laser-Cut Design",gal_10_title: "High-Density Fabric Car Parking Shades",gal_11_title: "CNC Laser-Cut Metal Garden Pergola",gal_12_title: "Rustic Bamboo-Style Garden Umbrella",gal_13_title: "Luxury Modern Garden Seating Pergola",gal_14_title: "Luxury Outdoor Seating & Garden Pergola",why_eyebrow: "Built on Trust & Precision",why_title: "Why Clients in Jeddah Choose Al-Rayyan",why_subtitle: "We combine high-grade insulated materials, expert engineering, competitive pricing, and disciplined scheduling to deliver lasting structures.",why_1_title: "15+ Years of Experience",why_1_desc: "Proven track record executing sandwich panels, shades, screens, and outdoor structures across Jeddah.",why_2_title: "High-Grade Insulated Materials",why_2_desc: "Carefully selected structural steel, insulated panels, and weather-resistant membranes built for long life.",why_3_title: "Expert Engineering & Teams",why_3_desc: "Skilled installation technicians focused on structural integrity, clean joints, and refined finishing.",why_4_title: "Punctual Delivery & Warranty",why_4_desc: "Clear commitment to agreed timelines backed by official material and installation warranties.",why_5_title: "Fast On-Site Installation",why_5_desc: "Efficient, well-organized on-site execution without compromising structural precision.",why_6_title: "Superior Workmanship",why_6_desc: "Close attention to steel gauges, thermal/waterproof sealing, and clean final detailing.",why_7_title: "Serving All of Jeddah",why_7_desc: "Dedicated field coverage across Jeddah, Al Hamdaniya, and surrounding areas in Saudi Arabia.",why_8_title: "Competitive Prices in Jeddah",why_8_desc: "Outstanding value with tailored material specifications to suit residential and commercial budgets.",proc_eyebrow: "How We Work",proc_title: "A Clear 4-Step Execution Process",proc_1_title: "Contact",proc_1_desc: "Reach out via phone or WhatsApp to share your inquiry and the type of structure you need.",proc_2_title: "Site & Spec Review",proc_2_desc: "We review your project dimensions, site conditions, and material preferences to prepare a competitive quote.",proc_3_title: "Fabrication & Installation",proc_3_desc: "Materials are fabricated and installed on-site by our experienced engineering and technical team.",proc_4_title: "Handover & Warranty",proc_4_desc: "Final inspection of workmanship and clean handover on the agreed schedule with official warranty.",rev_eyebrow: "Verified Client Feedback",rev_title: "Trusted by Clients on Google Maps",rev_summary_count: "Based on 46 Google Reviews",reviews_map_btn: "View us on Google Maps",rev_1_author: "Bandar Al-Zahrani",rev_2_author: "Waleed",rev_3_author: "Abu Haitham",rev_4_author: "Mohammed Al-Qahtani",rev_5_author: "Abdullah Al-Sharabi",quote_eyebrow: "Quick Quote Request",quote_title: "Get a Quick Quote",quote_subtitle: "Enter your project details below to generate a structured WhatsApp inquiry sent directly to Al-Rayyan's team in Jeddah.",quote_bullet_1: "Select your desired service, project type, and approximate area",quote_bullet_2: "Opens a direct WhatsApp chat with our official number +966 55 004 4696",quote_bullet_3: "Our team follows up directly to confirm specifications and measurements",lbl_name: "Name",lbl_phone: "Phone",lbl_service: "Service",lbl_project_type: "Project Type",lbl_area: "Approximate Area (Optional)",lbl_message: "Message / Details",opt_shades: "Shades & Canopies",opt_panels: "Sandwich Panels",opt_screens: "Privacy Screens (Sawaatir)",opt_pergolas: "Pergolas",opt_tents: "Traditional Tents",opt_tiles: "Roof Tiles (Qarmid)",opt_lexan: "Polycarbonate / Lexan",opt_other: "Other Outdoor Structure",opt_type_res: "Residential / Villa",opt_type_com: "Commercial / Warehouse",opt_type_annex: "Annex / Majlis",opt_type_other: "Other Project",quote_note: "Quick Quote Request: Submitting opens WhatsApp with your pre-filled project details.",btn_send_wa_quote: "Send Quick Quote Request on WhatsApp",faq_eyebrow: "Common Questions",faq_title: "Frequently Asked Questions",faq_q1: "What are Tensile Shades and where are they used?",faq_a1: "They are giant architectural shades without center pillars, used for large projects, schools, commercial parking, and stadiums.",faq_q2: "What is PVC fabric and what are its features?",faq_a2: "It is a highly durable, efficient, 100% heat and waterproof material ideal for large shades.",faq_q3: "What is PVDF fabric and what makes it exceptional?",faq_a3: "A PVC-coated polyester membrane with a top fluoropolymer layer that repels dirt and resists UV rays.",faq_q4: "What is the lifespan of PVC and PVDF shades?",faq_a4: "These fabrics boast a long lifespan ranging from 10 to 18 years while maintaining color stability.",faq_q5: "Are the fabrics used completely waterproof?",faq_a5: "Yes, all fabrics we use in our shades are 100% waterproof and insulated.",faq_q6: "How are the metal structures manufactured and detailed?",faq_a6: "We detail structures with high precision, including galvanization, oven-baked paint, and engineered concrete bases.",faq_q7: "What welding technology is used for the fabrics?",faq_a7: "We use High-Frequency (HF) welding technology to ensure maximum strength and cohesion at the fabric edges.",faq_q8: "What is the wind resistance capacity of the shades?",faq_a8: "The shades are designed and tension-tested to withstand wind speeds ranging from 2800 to 4500 N/5cm.",faq_q9: "Do you offer a warranty on tensile shades?",faq_a9: "Yes, our certified PVC and PVDF shade systems are backed by a 10-year warranty.",faq_q10: "Are certificates of origin provided for the materials used?",faq_a10: "Absolutely, we rely on precise product datasheets and provide certificates of origin to guarantee quality.",contact_eyebrow: "Direct Contact Channels",contact_title: "Contact Al-Rayyan",contact_subtitle: "Reach out to our team by phone, WhatsApp, or visit our location in Jeddah.",cnt_phone_lbl: "Phone & WhatsApp",cnt_addr_lbl: "Address",cnt_addr_val: "Next to Al Mazraa Markets, Jeddah, Saudi Arabia (بجوار اسواق المزرعة، حي، جدة)",cnt_areas_lbl: "Service Areas",cnt_areas_val: "Jeddah • Al Hamdaniya, Jeddah • Saudi Arabia",cnt_wa_btn: "WhatsApp Us",cnt_map_btn: "Google Maps",cnt_insta_btn: "Instagram",hours_unified_badge: "Unified Schedule All Week (Including Friday)",hours_title: "Business Hours",hours_sub: "We are available throughout the week to assist with your project inquiries",hours_all_week_lbl: "Monday – Sunday",hours_all_week_val: "9:00 AM – 12:00 AM",hours_feat_1: "Fast WhatsApp inquiries & quick response during business hours",hours_feat_2: "On-site measurements and field inspections across all Jeddah districts",est_label: "Established: 8 February 2014",est_note: "Al-Rayyan Shades & Panels - Jeddah — Sandwich Panels, Shades & Outdoor Structures.",insta_cta_title: "Follow Our Work on Instagram",insta_btn_label: "Visit Instagram Profile",footer_desc: "Premium shades, sandwich panels and outdoor structure solutions in Jeddah with 15+ years of experience and official warranties.",footer_links_title: "Quick Links",footer_contact_title: "Contact Details",footer_copy: "© Al-Rayyan — Sandwich Panels, Shades & Outdoor Structures. All rights reserved.",mob_wa: "WhatsApp",mob_call: "Call Now"}};
 window.currentLang = 'ar';
 
 function getSavedLang() {
@@ -1286,7 +1470,7 @@ document.addEventListener('keydown', function(e) {
 window.addEventListener('DOMContentLoaded', function() {
   setTimeout(function() {
     if (!window.__RAYYAN_GALLERY_INITIALIZED__) {
-      // =========================================================================
+// =========================================================================
 // Al-Rayyan Dynamic Gallery Data & Controller (gallery-data.js)
 // Zero-conflict architecture — works seamlessly with index.html
 // =========================================================================
@@ -1294,15 +1478,48 @@ window.addEventListener('DOMContentLoaded', function() {
   if (window.__RAYYAN_GALLERY_INITIALIZED__) return;
   window.__RAYYAN_GALLERY_INITIALIZED__ = true;
 
+  // Universal Smart Image Error & Extension Handler
+  window.__handleGalleryImgError = function(img) {
+    if (!img) return;
+    const currentTry = parseInt(img.getAttribute('data-try') || '0', 10);
+    const orig = img.getAttribute('data-orig') || img.getAttribute('src') || '';
+    if (!img.getAttribute('data-orig')) {
+      img.setAttribute('data-orig', orig);
+    }
+    const basePath = orig.replace(/\.[a-zA-Z0-9]+$/, '');
+    const candidates = ['.jpg', '.png', '.webp', '.JPG', '.JPEG'];
+
+    if (currentTry < candidates.length) {
+      img.setAttribute('data-try', currentTry + 1);
+      img.src = basePath + candidates[currentTry];
+      return;
+    }
+
+    // If shade-4 specifically is missing from gallery folder, try root asset
+    if (currentTry === candidates.length) {
+      img.setAttribute('data-try', currentTry + 1);
+      if (orig.indexOf('shade-4') !== -1) {
+        img.src = 'mazallat-sayarat-flat-roof-jeddah.jpeg';
+        return;
+      }
+    }
+
+    const fallbackSvg = img.getAttribute('data-fallback');
+    img.onerror = null;
+    if (fallbackSvg) {
+      img.src = fallbackSvg;
+    }
+  };
+
   const galleryCategories = [
-    { prefix: "panel", count: 3, category: "panels", nameAr: "سندويش بنل", nameEn: "Sandwich Panels", descAr: "توريد وتركيب ألواح سندويش بنل للغرف والملاحق والشقق كاملة.", descEn: "Supply and installation of sandwich panels for rooms and apartments." },
-    { prefix: "shade", count: 6, category: "shades", nameAr: "مظلات سيارات", nameEn: "Car Shades", descAr: "حلول كاملة للتظليل وتفصيل جميع أنواع مظلات السيارات.", descEn: "Complete shading solutions and custom car shades." },
-    { prefix: "swater", count: 3, category: "swater", nameAr: "سواتر", nameEn: "Privacy Screens", descAr: "تركيب سواتر حديثة توفر الخصوصية التامة والحماية.", descEn: "Installation of modern privacy screens providing complete protection." },
-    { prefix: "pergola", count: 4, category: "pergolas", nameAr: "برجولات", nameEn: "Pergolas", descAr: "ابتكار مساحات استرخاء خارجية وبرجولات للحدائق.", descEn: "Innovative outdoor relaxation spaces and pergolas for gardens." },
-    { prefix: "tent", count: 3, category: "tents", nameAr: "بيوت شعر", nameEn: "Traditional Tents", descAr: "تفصيل وتركيب بيوت شعر ملكية وعادية بتصاميم تراثية وعصرية.", descEn: "Custom royal and regular traditional tents with modern designs." },
-    { prefix: "qarmid", count: 3, category: "qarmid", nameAr: "قرميد إيطالي ومعدني", nameEn: "Italian & Metal Qarmid", descAr: "توريد وتركيب القرميد الإيطالي والمعدني للأسطح والواجهات.", descEn: "Supply and installation of Italian and metal roof tiles." },
-    { prefix: "decor", count: 5, category: "decor", nameAr: "ديكورات عشبية ولكسان", nameEn: "Grass & Lexan Decor", descAr: "تصميم وتنفيذ الديكورات الخارجية باستخدام بديل الخشب والعشب.", descEn: "Exterior decorations using weather-resistant wood alternatives and grass." },
-    { prefix: "tensile", count: 2, category: "tensile", nameAr: "مظلات الشد الإنشائي", nameEn: "Tensile Shades", descAr: "مظلات هندسية بأقمشة PVC و PVDF المقاومة للماء.", descEn: "Giant engineered shades with waterproof PVC/PVDF fabrics." }
+    { prefix: 'panel', count: 3, category: 'panels', nameAr: 'سندويش بنل', nameEn: 'Sandwich Panels', descAr: 'توريد وتركيب ألواح سندويش بنل للغرف والملاحق والشقق كاملة.', descEn: 'Supply and installation of sandwich panels for rooms and apartments.' },
+    { prefix: 'shade', count: 6, category: 'shades', nameAr: 'مظلات سيارات', nameEn: 'Car Shades', descAr: 'حلول كاملة للتظليل وتفصيل جميع أنواع مظلات السيارات.', descEn: 'Complete shading solutions and custom car shades.' },
+    { prefix: 'swater', count: 3, category: 'swater', nameAr: 'سواتر', nameEn: 'Privacy Screens', descAr: 'تركيب سواتر حديثة توفر الخصوصية التامة والحماية.', descEn: 'Installation of modern privacy screens providing complete protection.' },
+    { prefix: 'pergola', count: 4, category: 'pergolas', nameAr: 'برجولات', nameEn: 'Pergolas', descAr: 'ابتكار مساحات استرخاء خارجية وبرجولات للحدائق.', descEn: 'Innovative outdoor relaxation spaces and pergolas for gardens.' },
+    { prefix: 'tent', count: 3, category: 'tents', nameAr: 'بيوت شعر', nameEn: 'Traditional Tents', descAr: 'تفصيل وتركيب بيوت شعر ملكية وعادية بتصاميم تراثية وعصرية.', descEn: 'Custom royal and regular traditional tents with modern designs.' },
+    { prefix: 'qarmid', count: 3, category: 'qarmid', nameAr: 'قرميد إيطالي ومعدني', nameEn: 'Italian & Metal Qarmid', descAr: 'توريد وتركيب القرميد الإيطالي والمعدني للأسطح والواجهات.', descEn: 'Supply and installation of Italian and metal roof tiles.' },
+    { prefix: 'decor', count: 5, category: 'decor', nameAr: 'ديكورات عشبية ولكسان', nameEn: 'Grass & Lexan Decor', descAr: 'تصميم وتنفيذ الديكورات الخارجية باستخدام بديل الخشب والعشب.', descEn: 'Exterior decorations using weather-resistant wood alternatives and grass.' },
+    { prefix: 'tensile', count: 2, category: 'tensile', nameAr: 'مظلات الشد الإنشائي', nameEn: 'Tensile Shades', descAr: 'مظلات هندسية بأقمشة PVC و PVDF المقاومة للماء.', descEn: 'Giant engineered shades with waterproof PVC/PVDF fabrics.' }
   ];
 
   const galleryData = [];
@@ -1312,10 +1529,10 @@ window.addEventListener('DOMContentLoaded', function() {
     for (let i = 1; i <= cat.count; i++) {
       galleryData.push({
         serial: serialNumber,
-        src: "gallery/" + cat.prefix + "-" + i + ".jpeg",
+        src: 'gallery/' + cat.prefix + '-' + i + '.jpeg',
         category: cat.category,
-        titleAr: cat.nameAr + " - رقم " + serialNumber,
-        titleEn: cat.nameEn + " - #" + serialNumber,
+        titleAr: cat.nameAr + ' - رقم ' + serialNumber,
+        titleEn: cat.nameEn + ' - #' + serialNumber,
         descAr: cat.descAr,
         descEn: cat.descEn
       });
@@ -1327,37 +1544,37 @@ window.addEventListener('DOMContentLoaded', function() {
 
   let currentItem = 0;
   const itemsPerPage = 9;
-  let currentFilter = "all";
+  let currentFilter = 'all';
 
   function getActiveLang() {
-    if (window.currentLang === "en" || document.documentElement.getAttribute("lang") === "en") {
-      return "en";
+    if (window.currentLang === 'en' || document.documentElement.getAttribute('lang') === 'en') {
+      return 'en';
     }
-    return "ar";
+    return 'ar';
   }
 
   function syncGalleryLanguage(lang) {
-    const activeLang = (lang === "en") ? "en" : ((lang === "ar") ? "ar" : getActiveLang());
-    document.querySelectorAll("#dynamic-gallery-grid .lang-ar").forEach(function(el) {
-      el.style.display = (activeLang === "ar") ? "block" : "none";
+    const activeLang = (lang === 'en') ? 'en' : ((lang === 'ar') ? 'ar' : getActiveLang());
+    document.querySelectorAll('#dynamic-gallery-grid .lang-ar').forEach(function(el) {
+      el.style.display = (activeLang === 'ar') ? 'block' : 'none';
     });
-    document.querySelectorAll("#dynamic-gallery-grid .lang-en").forEach(function(el) {
-      el.style.display = (activeLang === "en") ? "block" : "none";
+    document.querySelectorAll('#dynamic-gallery-grid .lang-en').forEach(function(el) {
+      el.style.display = (activeLang === 'en') ? 'block' : 'none';
     });
   }
 
   window.syncGalleryLanguage = syncGalleryLanguage;
 
   function loadGalleryItems() {
-    const galleryGrid = document.getElementById("dynamic-gallery-grid");
-    const loadMoreBtn = document.getElementById("load-more-btn");
+    const galleryGrid = document.getElementById('dynamic-gallery-grid');
+    const loadMoreBtn = document.getElementById('load-more-btn');
     if (!galleryGrid) return;
 
     const activeLang = getActiveLang();
-    const arDisplay = (activeLang === "ar") ? "block" : "none";
-    const enDisplay = (activeLang === "en") ? "block" : "none";
+    const arDisplay = (activeLang === 'ar') ? 'block' : 'none';
+    const enDisplay = (activeLang === 'en') ? 'block' : 'none';
 
-    const filteredData = (currentFilter === "all")
+    const filteredData = (currentFilter === 'all')
       ? galleryData
       : galleryData.filter(function(item) { return item.category === currentFilter; });
 
@@ -1369,7 +1586,7 @@ window.addEventListener('DOMContentLoaded', function() {
     for (let i = currentItem; i < maxItem; i++) {
       const item = filteredData[i];
       const badgeNum = i + 1;
-      const fallbackSvg = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
+      const fallbackSvg = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
         '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">' +
         '<rect width="600" height="400" fill="#1A1917"/>' +
         '<rect x="20" y="20" width="560" height="360" fill="none" stroke="#B68D52" stroke-width="1.5" stroke-opacity="0.45"/>' +
@@ -1381,7 +1598,7 @@ window.addEventListener('DOMContentLoaded', function() {
       const cardHtml =
         '<div class="gallery-item" data-category="' + item.category + '">' +
           '<div class="gallery-img-wrapper">' +
-            '<img src="' + item.src + '" alt="' + item.titleAr + ' | ' + item.titleEn + '" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\'' + fallbackSvg + '\';">' +
+            '<img src="' + item.src + '" data-orig="' + item.src + '" data-fallback="' + fallbackSvg + '" alt="' + item.titleAr + ' | ' + item.titleEn + '" loading="lazy" decoding="async" onerror="window.__handleGalleryImgError&&window.__handleGalleryImgError(this)">' +
             '<span class="gallery-badge">#' + badgeNum + '</span>' +
           '</div>' +
           '<div class="gallery-card-body">' +
@@ -1392,58 +1609,58 @@ window.addEventListener('DOMContentLoaded', function() {
           '</div>' +
         '</div>';
 
-      galleryGrid.insertAdjacentHTML("beforeend", cardHtml);
+      galleryGrid.insertAdjacentHTML('beforeend', cardHtml);
     }
 
     currentItem = maxItem;
 
     if (loadMoreBtn) {
       if (currentItem >= filteredData.length) {
-        loadMoreBtn.style.display = "none";
+        loadMoreBtn.style.display = 'none';
       } else {
-        loadMoreBtn.style.display = "inline-flex";
+        loadMoreBtn.style.display = 'inline-flex';
       }
     }
   }
 
   function initGallery() {
-    const galleryGrid = document.getElementById("dynamic-gallery-grid");
-    const loadMoreBtn = document.getElementById("load-more-btn");
-    const filterBtns = document.querySelectorAll(".filter-btn");
+    const galleryGrid = document.getElementById('dynamic-gallery-grid');
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    const filterBtns = document.querySelectorAll('.filter-btn');
 
     if (!galleryGrid) return;
 
-    galleryGrid.innerHTML = "";
+    galleryGrid.innerHTML = '';
     currentItem = 0;
     loadGalleryItems();
 
     filterBtns.forEach(function(btn) {
-      btn.addEventListener("click", function(e) {
+      btn.addEventListener('click', function(e) {
         e.preventDefault();
         filterBtns.forEach(function(b) {
-          b.classList.remove("active");
-          b.setAttribute("aria-pressed", "false");
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
         });
-        btn.classList.add("active");
-        btn.setAttribute("aria-pressed", "true");
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
 
-        currentFilter = btn.getAttribute("data-filter") || "all";
-        galleryGrid.innerHTML = "";
+        currentFilter = btn.getAttribute('data-filter') || 'all';
+        galleryGrid.innerHTML = '';
         currentItem = 0;
         loadGalleryItems();
       });
     });
 
     if (loadMoreBtn) {
-      loadMoreBtn.addEventListener("click", function(e) {
+      loadMoreBtn.addEventListener('click', function(e) {
         e.preventDefault();
         loadGalleryItems();
       });
     }
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initGallery);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGallery);
   } else {
     initGallery();
   }
