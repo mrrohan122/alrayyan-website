@@ -6,9 +6,36 @@
   if (window.__RAYYAN_GALLERY_INITIALIZED__) return;
   window.__RAYYAN_GALLERY_INITIALIZED__ = true;
 
+  // Smart multi-extension fallback handler
+  if (!window.__handleGalleryImgError) {
+    window.__handleGalleryImgError = function(img) {
+      if (!img) return;
+      const currentTry = parseInt(img.getAttribute('data-try') || '0', 10);
+      const orig = img.getAttribute('data-orig') || img.getAttribute('src') || '';
+      if (!img.getAttribute('data-orig')) {
+        img.setAttribute('data-orig', orig);
+      }
+      const basePath = orig.replace(/\.[a-zA-Z0-9]+$/, '');
+      const candidates = ['.jpg', '.png', '.webp', '.JPG', '.JPEG'];
+
+      if (currentTry < candidates.length) {
+        img.setAttribute('data-try', (currentTry + 1).toString());
+        img.src = basePath + candidates[currentTry];
+        return;
+      }
+
+      const fallbackSvg = img.getAttribute('data-fallback');
+      img.onerror = null;
+      if (fallbackSvg) {
+        img.src = fallbackSvg;
+      }
+    };
+  }
+
+
   const galleryCategories = [
     { prefix: "panel", count: 3, category: "panels", nameAr: "سندويش بنل", nameEn: "Sandwich Panels", descAr: "توريد وتركيب ألواح سندويش بنل للغرف والملاحق والشقق كاملة.", descEn: "Supply and installation of sandwich panels for rooms and apartments." },
-    { prefix: "shade", count: 6, category: "shades", nameAr: "مظلات سيارات", nameEn: "Car Shades", descAr: "حلول كاملة للتظليل وتفصيل جميع أنواع مظلات السيارات.", descEn: "Complete shading solutions and custom car shades." },
+    { prefix: "shade", indices: [1, 2, 3, 5, 6], count: 5, category: "shades", nameAr: "مظلات سيارات", nameEn: "Car Shades", descAr: "حلول كاملة للتظليل وتفصيل جميع أنواع مظلات السيارات.", descEn: "Complete shading solutions and custom car shades." },
     { prefix: "swater", count: 3, category: "swater", nameAr: "سواتر", nameEn: "Privacy Screens", descAr: "تركيب سواتر حديثة توفر الخصوصية التامة والحماية.", descEn: "Installation of modern privacy screens providing complete protection." },
     { prefix: "pergola", count: 4, category: "pergolas", nameAr: "برجولات", nameEn: "Pergolas", descAr: "ابتكار مساحات استرخاء خارجية وبرجولات للحدائق.", descEn: "Innovative outdoor relaxation spaces and pergolas for gardens." },
     { prefix: "tent", count: 3, category: "tents", nameAr: "بيوت شعر", nameEn: "Traditional Tents", descAr: "تفصيل وتركيب بيوت شعر ملكية وعادية بتصاميم تراثية وعصرية.", descEn: "Custom royal and regular traditional tents with modern designs." },
@@ -21,7 +48,8 @@
   let serialNumber = 1;
 
   galleryCategories.forEach(function(cat) {
-    for (let i = 1; i <= cat.count; i++) {
+    const fileList = cat.indices || Array.from({length: cat.count}, function(_, idx) { return idx + 1; });
+    fileList.forEach(function(i) {
       galleryData.push({
         serial: serialNumber,
         src: "gallery/" + cat.prefix + "-" + i + ".jpeg",
@@ -32,7 +60,7 @@
         descEn: cat.descEn
       });
       serialNumber++;
-    }
+    });
   });
 
   window.GALLERY_DATA = galleryData;
@@ -93,7 +121,7 @@
       const cardHtml =
         '<div class="gallery-item" data-category="' + item.category + '">' +
           '<div class="gallery-img-wrapper">' +
-            '<img src="' + item.src + '" alt="' + item.titleAr + ' | ' + item.titleEn + '" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\'' + fallbackSvg + '\';">' +
+            '<img src="' + item.src + '" alt="' + item.titleAr + ' | ' + item.titleEn + '" loading="lazy" decoding="async" data-fallback="' + fallbackSvg + '" onerror="window.__handleGalleryImgError?window.__handleGalleryImgError(this):(this.onerror=null,this.src=this.getAttribute(\'data-fallback\'))">' +
             '<span class="gallery-badge">#' + badgeNum + '</span>' +
           '</div>' +
           '<div class="gallery-card-body">' +
