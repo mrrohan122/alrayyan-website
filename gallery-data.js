@@ -28,15 +28,16 @@ galleryCategories.forEach(cat => {
 
 let currentItem = 0;
 const itemsPerPage = 9;
-let currentFilter = 'all'; // Default filter
+let currentFilter = 'all'; 
 const galleryGrid = document.getElementById('dynamic-gallery-grid');
 const loadMoreBtn = document.getElementById('load-more-btn');
-const filterBtns = document.querySelectorAll('.filter-btn'); // Filter buttons ko select kiya
+
+// Yahan class ka naam "filter-btn" zaroor hona chahiye aapki HTML mein
+const filterBtns = document.querySelectorAll('.filter-btn'); 
 
 function loadGalleryItems() {
   if (!galleryGrid) return;
   
-  // Filter ki hui list banayen
   const filteredData = currentFilter === 'all' 
     ? galleryData 
     : galleryData.filter(item => item.category === currentFilter);
@@ -46,6 +47,8 @@ function loadGalleryItems() {
 
   for (let i = currentItem; i < maxItem; i++) {
     const item = filteredData[i];
+    
+    // Maine yahan se "reveal active" nikal diya hai, ab data hide nahi hoga
     const html = `
       <div class="gallery-item" data-category="${item.category}">
         <div class="gallery-img-wrapper">
@@ -53,10 +56,10 @@ function loadGalleryItems() {
           <span class="gallery-badge">#${i + 1}</span>
         </div>
         <div class="gallery-overlay">
-          <h4 class="lang-ar">${item.titleAr}</h4>
-          <p class="lang-ar">${item.descAr}</p>
-          <h4 class="lang-en" style="display: none;">${item.titleEn}</h4>
-          <p class="lang-en" style="display: none;">${item.descEn}</p>
+          <h4 class="lang-ar" style="display:block;">${item.titleAr}</h4>
+          <p class="lang-ar" style="display:block;">${item.descAr}</p>
+          <h4 class="lang-en" style="display:none;">${item.titleEn}</h4>
+          <p class="lang-en" style="display:none;">${item.descEn}</p>
         </div>
       </div>
     `;
@@ -69,44 +72,48 @@ function loadGalleryItems() {
     if (currentItem >= filteredData.length) {
       loadMoreBtn.style.display = 'none';
     } else {
-      loadMoreBtn.style.display = 'block';
+      loadMoreBtn.style.display = 'block'; // Ya inline-block
     }
   }
 }
 
-// Filter Buttons par click event lagayen
+// Filter Buttons Click Logic
 if (filterBtns) {
   filterBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
-      // Pehle wale active button se class hatayen
+      // Pehle tamam buttons se 'active' hata dein
       filterBtns.forEach(b => b.classList.remove('active'));
-      // Naye click kiye hue button par active class lagayen
+      // Jo click hua us par 'active' lagayein
       e.target.classList.add('active');
       
-      // Filter ki value lein aur gallery reset karein
+      // Filter value read karein (ensure karein HTML mein data-filter ho)
       currentFilter = e.target.getAttribute('data-filter') || 'all';
-      galleryGrid.innerHTML = ''; // Purani photos hata dein
-      currentItem = 0; // Reset counter
-      loadGalleryItems(); // Nayi (filtered) photos load karein
+      galleryGrid.innerHTML = ''; 
+      currentItem = 0; 
+      loadGalleryItems(); 
     });
   });
 }
 
-// Language Switcher Logic (Simple Version)
-const langBtns = document.querySelectorAll('.lang-switcher'); // Aapke language buttons ki class (check karke theek kar lein)
+// Language Switcher Logic (ensure HTML buttons have class="lang-switcher" and data-lang="ar"/"en")
+const langBtns = document.querySelectorAll('.lang-switcher');
 if(langBtns) {
     langBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
-            const lang = e.target.getAttribute('data-lang'); // 'ar' ya 'en'
+            const lang = e.target.getAttribute('data-lang'); 
             
-            // Sabhi text elements ko select karein
-            document.querySelectorAll('.lang-ar').forEach(el => el.style.display = (lang === 'ar') ? 'block' : 'none');
-            document.querySelectorAll('.lang-en').forEach(el => el.style.display = (lang === 'en') ? 'block' : 'none');
+            // Toggle Arabic text
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.style.display = (lang === 'ar') ? 'block' : 'none';
+            });
+            // Toggle English text
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.style.display = (lang === 'en') ? 'block' : 'none';
+            });
         });
     });
 }
-
 
 document.addEventListener('DOMContentLoaded', () => {
   loadGalleryItems();
