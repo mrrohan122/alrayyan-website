@@ -114,7 +114,7 @@ function loadGalleryItems() {
   for (let i = currentItem; i < maxItem; i++) {
     const item = galleryData[i];
     const html = `
-      <div class="gallery-item reveal active" data-category="${item.category}">
+      <div class="gallery-item" data-category="${item.category}">
         <div class="gallery-img-wrapper">
           <img src="${item.src}" alt="${item.alt}" loading="lazy" decoding="async" onerror="this.closest('.gallery-item').style.display='none'">
         </div>
@@ -123,8 +123,8 @@ function loadGalleryItems() {
           <h4 lang="ar">${item.titleAr}</h4>
           <p lang="ar">${item.descAr}</p>
           <!-- English Text -->
-          <h4 lang="en" style="display: none;">${item.titleEn}</h4>
-          <p lang="en" style="display: none;">${item.descEn}</p>
+          <h4 lang="en">${item.titleEn}</h4>
+          <p lang="en">${item.descEn}</p>
         </div>
       </div>
     `;
