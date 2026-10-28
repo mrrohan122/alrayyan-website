@@ -1,123 +1,162 @@
-const galleryCategories = [
-  { prefix: "panel", count: 3, category: "panels", nameAr: "سندويش بنل", nameEn: "Sandwich Panels", descAr: "توريد وتركيب ألواح سندويش بنل للغرف والملاحق والشقق كاملة.", descEn: "Supply and installation of sandwich panels for rooms and apartments." },
-  { prefix: "shade", count: 6, category: "shades", nameAr: "مظلات سيارات", nameEn: "Car Shades", descAr: "حلول كاملة للتظليل وتفصيل جميع أنواع مظلات السيارات.", descEn: "Complete shading solutions and custom car shades." },
-  { prefix: "swater", count: 3, category: "swater", nameAr: "سواتر", nameEn: "Privacy Screens", descAr: "تركيب سواتر حديثة توفر الخصوصية التامة والحماية.", descEn: "Installation of modern privacy screens providing complete protection." },
-  { prefix: "pergola", count: 4, category: "pergolas", nameAr: "برجولات", nameEn: "Pergolas", descAr: "ابتكار مساحات استرخاء خارجية وبرجولات للحدائق.", descEn: "Innovative outdoor relaxation spaces and pergolas for gardens." },
-  { prefix: "tent", count: 3, category: "tents", nameAr: "بيوت شعر", nameEn: "Traditional Tents", descAr: "تفصيل وتركيب بيوت شعر ملكية وعادية بتصاميم تراثية وعصرية.", descEn: "Custom royal and regular traditional tents with modern designs." },
-  { prefix: "qarmid", count: 3, category: "qarmid", nameAr: "قرميد إيطالي ومعدني", nameEn: "Italian & Metal Qarmid", descAr: "توريد وتركيب القرميد الإيطالي والمعدني للأسطح والواجهات.", descEn: "Supply and installation of Italian and metal roof tiles." },
-  { prefix: "decor", count: 5, category: "decor", nameAr: "ديكورات عشبية ولكسان", nameEn: "Grass & Lexan Decor", descAr: "تصميم وتنفيذ الديكورات الخارجية باستخدام بديل الخشب والعشب.", descEn: "Exterior decorations using weather-resistant wood alternatives and grass." },
-  { prefix: "tensile", count: 2, category: "tensile", nameAr: "مظلات الشد الإنشائي", nameEn: "Tensile Shades", descAr: "مظلات هندسية بأقمشة PVC و PVDF المقاومة للماء.", descEn: "Giant engineered shades with waterproof PVC/PVDF fabrics." }
-];
+// =========================================================================
+// Al-Rayyan Dynamic Gallery Data & Controller (gallery-data.js)
+// Zero-conflict architecture — works seamlessly with index.html
+// =========================================================================
+(function() {
+  if (window.__RAYYAN_GALLERY_INITIALIZED__) return;
+  window.__RAYYAN_GALLERY_INITIALIZED__ = true;
 
-const galleryData = [];
-let serialNumber = 1;
+  const galleryCategories = [
+    { prefix: "panel", count: 3, category: "panels", nameAr: "سندويش بنل", nameEn: "Sandwich Panels", descAr: "توريد وتركيب ألواح سندويش بنل للغرف والملاحق والشقق كاملة.", descEn: "Supply and installation of sandwich panels for rooms and apartments." },
+    { prefix: "shade", count: 6, category: "shades", nameAr: "مظلات سيارات", nameEn: "Car Shades", descAr: "حلول كاملة للتظليل وتفصيل جميع أنواع مظلات السيارات.", descEn: "Complete shading solutions and custom car shades." },
+    { prefix: "swater", count: 3, category: "swater", nameAr: "سواتر", nameEn: "Privacy Screens", descAr: "تركيب سواتر حديثة توفر الخصوصية التامة والحماية.", descEn: "Installation of modern privacy screens providing complete protection." },
+    { prefix: "pergola", count: 4, category: "pergolas", nameAr: "برجولات", nameEn: "Pergolas", descAr: "ابتكار مساحات استرخاء خارجية وبرجولات للحدائق.", descEn: "Innovative outdoor relaxation spaces and pergolas for gardens." },
+    { prefix: "tent", count: 3, category: "tents", nameAr: "بيوت شعر", nameEn: "Traditional Tents", descAr: "تفصيل وتركيب بيوت شعر ملكية وعادية بتصاميم تراثية وعصرية.", descEn: "Custom royal and regular traditional tents with modern designs." },
+    { prefix: "qarmid", count: 3, category: "qarmid", nameAr: "قرميد إيطالي ومعدني", nameEn: "Italian & Metal Qarmid", descAr: "توريد وتركيب القرميد الإيطالي والمعدني للأسطح والواجهات.", descEn: "Supply and installation of Italian and metal roof tiles." },
+    { prefix: "decor", count: 5, category: "decor", nameAr: "ديكورات عشبية ولكسان", nameEn: "Grass & Lexan Decor", descAr: "تصميم وتنفيذ الديكورات الخارجية باستخدام بديل الخشب والعشب.", descEn: "Exterior decorations using weather-resistant wood alternatives and grass." },
+    { prefix: "tensile", count: 2, category: "tensile", nameAr: "مظلات الشد الإنشائي", nameEn: "Tensile Shades", descAr: "مظلات هندسية بأقمشة PVC و PVDF المقاومة للماء.", descEn: "Giant engineered shades with waterproof PVC/PVDF fabrics." }
+  ];
 
-galleryCategories.forEach(cat => {
-  for (let i = 1; i <= cat.count; i++) {
-    galleryData.push({
-      src: `gallery/${cat.prefix}-${i}.jpeg`, 
-      category: cat.category,
-      titleAr: `${cat.nameAr} - رقم ${serialNumber}`,
-      titleEn: `${cat.nameEn} - #${serialNumber}`,
-      descAr: cat.descAr,
-      descEn: cat.descEn
+  const galleryData = [];
+  let serialNumber = 1;
+
+  galleryCategories.forEach(function(cat) {
+    for (let i = 1; i <= cat.count; i++) {
+      galleryData.push({
+        serial: serialNumber,
+        src: "gallery/" + cat.prefix + "-" + i + ".jpeg",
+        category: cat.category,
+        titleAr: cat.nameAr + " - رقم " + serialNumber,
+        titleEn: cat.nameEn + " - #" + serialNumber,
+        descAr: cat.descAr,
+        descEn: cat.descEn
+      });
+      serialNumber++;
+    }
+  });
+
+  window.GALLERY_DATA = galleryData;
+
+  let currentItem = 0;
+  const itemsPerPage = 9;
+  let currentFilter = "all";
+
+  function getActiveLang() {
+    if (window.currentLang === "en" || document.documentElement.getAttribute("lang") === "en") {
+      return "en";
+    }
+    return "ar";
+  }
+
+  function syncGalleryLanguage(lang) {
+    const activeLang = (lang === "en") ? "en" : ((lang === "ar") ? "ar" : getActiveLang());
+    document.querySelectorAll("#dynamic-gallery-grid .lang-ar").forEach(function(el) {
+      el.style.display = (activeLang === "ar") ? "block" : "none";
     });
-    serialNumber++;
+    document.querySelectorAll("#dynamic-gallery-grid .lang-en").forEach(function(el) {
+      el.style.display = (activeLang === "en") ? "block" : "none";
+    });
   }
-});
 
-let currentItem = 0;
-const itemsPerPage = 9;
-let currentFilter = 'all'; 
-const galleryGrid = document.getElementById('dynamic-gallery-grid');
-const loadMoreBtn = document.getElementById('load-more-btn');
+  window.syncGalleryLanguage = syncGalleryLanguage;
 
-// Yahan class ka naam "filter-btn" zaroor hona chahiye aapki HTML mein
-const filterBtns = document.querySelectorAll('.filter-btn'); 
+  function loadGalleryItems() {
+    const galleryGrid = document.getElementById("dynamic-gallery-grid");
+    const loadMoreBtn = document.getElementById("load-more-btn");
+    if (!galleryGrid) return;
 
-function loadGalleryItems() {
-  if (!galleryGrid) return;
-  
-  const filteredData = currentFilter === 'all' 
-    ? galleryData 
-    : galleryData.filter(item => item.category === currentFilter);
+    const activeLang = getActiveLang();
+    const arDisplay = (activeLang === "ar") ? "block" : "none";
+    const enDisplay = (activeLang === "en") ? "block" : "none";
 
-  let maxItem = currentItem + itemsPerPage;
-  if (maxItem > filteredData.length) maxItem = filteredData.length;
+    const filteredData = (currentFilter === "all")
+      ? galleryData
+      : galleryData.filter(function(item) { return item.category === currentFilter; });
 
-  for (let i = currentItem; i < maxItem; i++) {
-    const item = filteredData[i];
-    
-    // Maine yahan se "reveal active" nikal diya hai, ab data hide nahi hoga
-    const html = `
-      <div class="gallery-item" data-category="${item.category}">
-        <div class="gallery-img-wrapper">
-          <img src="${item.src}" alt="${item.titleEn}" loading="lazy" decoding="async" onerror="this.closest('.gallery-item').style.display='none'">
-          <span class="gallery-badge">#${i + 1}</span>
-        </div>
-        <div class="gallery-overlay">
-          <h4 class="lang-ar" style="display:block;">${item.titleAr}</h4>
-          <p class="lang-ar" style="display:block;">${item.descAr}</p>
-          <h4 class="lang-en" style="display:none;">${item.titleEn}</h4>
-          <p class="lang-en" style="display:none;">${item.descEn}</p>
-        </div>
-      </div>
-    `;
-    galleryGrid.insertAdjacentHTML('beforeend', html);
-  }
-  
-  currentItem += itemsPerPage;
+    let maxItem = currentItem + itemsPerPage;
+    if (maxItem > filteredData.length) {
+      maxItem = filteredData.length;
+    }
 
-  if (loadMoreBtn) {
-    if (currentItem >= filteredData.length) {
-      loadMoreBtn.style.display = 'none';
-    } else {
-      loadMoreBtn.style.display = 'block'; // Ya inline-block
+    for (let i = currentItem; i < maxItem; i++) {
+      const item = filteredData[i];
+      const badgeNum = i + 1;
+      const fallbackSvg = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">' +
+        '<rect width="600" height="400" fill="#1A1917"/>' +
+        '<rect x="20" y="20" width="560" height="360" fill="none" stroke="#B68D52" stroke-width="1.5" stroke-opacity="0.45"/>' +
+        '<text x="300" y="190" text-anchor="middle" fill="#D1AE79" font-family="sans-serif" font-size="22" font-weight="bold">' + item.titleAr + '</text>' +
+        '<text x="300" y="225" text-anchor="middle" fill="#C6BFB3" font-family="sans-serif" font-size="16">' + item.titleEn + '</text>' +
+        '</svg>'
+      );
+
+      const cardHtml =
+        '<div class="gallery-item" data-category="' + item.category + '">' +
+          '<div class="gallery-img-wrapper">' +
+            '<img src="' + item.src + '" alt="' + item.titleAr + ' | ' + item.titleEn + '" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\'' + fallbackSvg + '\';">' +
+            '<span class="gallery-badge">#' + badgeNum + '</span>' +
+          '</div>' +
+          '<div class="gallery-card-body">' +
+            '<h4 class="lang-ar" style="display:' + arDisplay + ';">' + item.titleAr + '</h4>' +
+            '<p class="lang-ar" style="display:' + arDisplay + ';">' + item.descAr + '</p>' +
+            '<h4 class="lang-en" style="display:' + enDisplay + ';">' + item.titleEn + '</h4>' +
+            '<p class="lang-en" style="display:' + enDisplay + ';">' + item.descEn + '</p>' +
+          '</div>' +
+        '</div>';
+
+      galleryGrid.insertAdjacentHTML("beforeend", cardHtml);
+    }
+
+    currentItem = maxItem;
+
+    if (loadMoreBtn) {
+      if (currentItem >= filteredData.length) {
+        loadMoreBtn.style.display = "none";
+      } else {
+        loadMoreBtn.style.display = "inline-flex";
+      }
     }
   }
-}
 
-// Filter Buttons Click Logic
-if (filterBtns) {
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      // Pehle tamam buttons se 'active' hata dein
-      filterBtns.forEach(b => b.classList.remove('active'));
-      // Jo click hua us par 'active' lagayein
-      e.target.classList.add('active');
-      
-      // Filter value read karein (ensure karein HTML mein data-filter ho)
-      currentFilter = e.target.getAttribute('data-filter') || 'all';
-      galleryGrid.innerHTML = ''; 
-      currentItem = 0; 
-      loadGalleryItems(); 
-    });
-  });
-}
+  function initGallery() {
+    const galleryGrid = document.getElementById("dynamic-gallery-grid");
+    const loadMoreBtn = document.getElementById("load-more-btn");
+    const filterBtns = document.querySelectorAll(".filter-btn");
 
-// Language Switcher Logic (ensure HTML buttons have class="lang-switcher" and data-lang="ar"/"en")
-const langBtns = document.querySelectorAll('.lang-switcher');
-if(langBtns) {
-    langBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const lang = e.target.getAttribute('data-lang'); 
-            
-            // Toggle Arabic text
-            document.querySelectorAll('.lang-ar').forEach(el => {
-                el.style.display = (lang === 'ar') ? 'block' : 'none';
-            });
-            // Toggle English text
-            document.querySelectorAll('.lang-en').forEach(el => {
-                el.style.display = (lang === 'en') ? 'block' : 'none';
-            });
+    if (!galleryGrid) return;
+
+    galleryGrid.innerHTML = "";
+    currentItem = 0;
+    loadGalleryItems();
+
+    filterBtns.forEach(function(btn) {
+      btn.addEventListener("click", function(e) {
+        e.preventDefault();
+        filterBtns.forEach(function(b) {
+          b.classList.remove("active");
+          b.setAttribute("aria-pressed", "false");
         });
-    });
-}
+        btn.classList.add("active");
+        btn.setAttribute("aria-pressed", "true");
 
-document.addEventListener('DOMContentLoaded', () => {
-  loadGalleryItems();
-  if (loadMoreBtn) {
-    loadMoreBtn.addEventListener('click', loadGalleryItems);
+        currentFilter = btn.getAttribute("data-filter") || "all";
+        galleryGrid.innerHTML = "";
+        currentItem = 0;
+        loadGalleryItems();
+      });
+    });
+
+    if (loadMoreBtn) {
+      loadMoreBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        loadGalleryItems();
+      });
+    }
   }
-});
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initGallery);
+  } else {
+    initGallery();
+  }
+})();
