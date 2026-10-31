@@ -1,194 +1,287 @@
 // =========================================================================
 // Al-Rayyan Dynamic Gallery Data & Controller (gallery-data.js)
 // Zero-conflict architecture — works seamlessly with index.html
-// Updated with all client corrections:
-//   - High-resolution original .jpeg images with loading="lazy" decoding="async"
-//   - 100% unique images across all 28 items (fixed #8, #20, #21 duplicates)
-//   - Picture #4  -> Category: shades   | Title Ar: مظلات مخروطي PVDF
-//   - Picture #5  -> Category: shades   | Title Ar: مظلات إنشائية
-//   - Picture #7  -> Category: swater   | Title Ar: سواتر حديد
-//   - Picture #8  -> Category: swater   | Title Ar: سواتر لكسان
-//   - Picture #11 -> Category: pergolas | Title Ar: برجولة مودرن
-//   - Picture #18 -> Category: qarmid   | Title Ar: قرميد فخار إيطالي
-//   - Picture #20 -> Category: pergolas | Title Ar: برجولات حديد ولكسان
-//   - Picture #25 -> Category: panels   | Title Ar: غرف سندويش بنل
-//   - Picture #26 -> Category: panels   | Title Ar: غرف سندويش بنل
+// - Fetches images ONLY from the gallery/ folder (English filenames)
+// - Every entry uses a 100% unique image (duplicate between #8 and #21 resolved)
+// - Sandwich Panel Rooms entries updated to titleAr: "غرف سندويش بنل" & category: "panels"
+// - Every <img> tag includes loading="lazy" decoding="async" and object-fit: cover
 // =========================================================================
 (function() {
-  // Smart fallback handler: always guarantees a high-res project photo is displayed
-  window.__handleGalleryImgError = function(img) {
-    if (!img) return;
-    const serial = parseInt(img.getAttribute("data-serial") || "0", 10);
-    if (serial && typeof window.getEmbeddedGalleryUri === "function") {
-      const embeddedUri = window.getEmbeddedGalleryUri(serial);
-      if (embeddedUri && img.src !== embeddedUri) {
-        img.onerror = null;
-        img.src = embeddedUri;
+  if (window.__RAYYAN_GALLERY_INITIALIZED__) return;
+  window.__RAYYAN_GALLERY_INITIALIZED__ = true;
+
+  // Smart multi-extension fallback handler inside gallery/ folder
+  if (!window.__handleGalleryImgError) {
+    window.__handleGalleryImgError = function(img) {
+      if (!img) return;
+      const currentTry = parseInt(img.getAttribute("data-try") || "0", 10);
+      const orig = img.getAttribute("data-orig") || img.getAttribute("src") || "";
+      if (!img.getAttribute("data-orig")) {
+        img.setAttribute("data-orig", orig);
+      }
+      const basePath = orig.replace(/\.[a-zA-Z0-9]+$/, "");
+      const candidates = [".jpg", ".png", ".webp", ".JPG", ".JPEG"];
+
+      if (currentTry < candidates.length) {
+        img.setAttribute("data-try", (currentTry + 1).toString());
+        img.src = basePath + candidates[currentTry];
         return;
       }
-    }
-    const currentTry = parseInt(img.getAttribute("data-try") || "0", 10);
-    const orig = img.getAttribute("data-orig") || img.getAttribute("data-gallery-src") || img.getAttribute("src") || "";
-    if (!img.getAttribute("data-orig")) {
-      img.setAttribute("data-orig", orig);
-    }
-    const driveSrc = img.getAttribute("data-drive-src") || "";
-    const basePath = orig.replace(/\.[a-zA-Z0-9]+$/, "");
-    const candidates = [];
-    if (driveSrc) candidates.push(driveSrc);
-    candidates.push(basePath + ".jpg", basePath + ".png", basePath + ".webp", basePath + ".JPG", basePath + ".JPEG");
 
-    if (currentTry < candidates.length) {
-      img.setAttribute("data-try", (currentTry + 1).toString());
-      img.src = candidates[currentTry];
-      return;
-    }
+      const fallbackSvg = img.getAttribute("data-fallback");
+      img.onerror = null;
+      if (fallbackSvg) {
+        img.src = fallbackSvg;
+      }
+    };
+  }
 
-    const fallbackSvg = img.getAttribute("data-fallback");
-    img.onerror = null;
-    if (fallbackSvg) {
-      img.src = fallbackSvg;
-    }
-  };
-
-  const galleryCategories = [
-    { prefix: "panel", count: 3, category: "panels", nameAr: "سندويش بنل", nameEn: "Sandwich Panels", descAr: "توريد وتركيب ألواح سندويش بنل للغرف والملاحق والشقق كاملة.", descEn: "Supply and installation of sandwich panels for rooms and apartments." },
-    { prefix: "shade", indices: [1, 2, 3, 5, 6], count: 5, category: "shades", nameAr: "مظلات سيارات", nameEn: "Car Shades", descAr: "حلول كاملة للتظليل وتفصيل جميع أنواع مظلات السيارات.", descEn: "Complete shading solutions and custom car shades." },
-    { prefix: "swater", count: 3, category: "swater", nameAr: "سواتر", nameEn: "Privacy Screens", descAr: "تركيب سواتر حديثة توفر الخصوصية التامة والحماية.", descEn: "Installation of modern privacy screens providing complete protection." },
-    { prefix: "pergola", count: 4, category: "pergolas", nameAr: "برجولات", nameEn: "Pergolas", descAr: "ابتكار مساحات استرخاء خارجية وبرجولات للحدائق.", descEn: "Innovative outdoor relaxation spaces and pergolas for gardens." },
-    { prefix: "tent", count: 3, category: "tents", nameAr: "بيوت شعر", nameEn: "Traditional Tents", descAr: "تفصيل وتركيب بيوت شعر ملكية وعادية بتصاميم تراثية وعصرية.", descEn: "Custom royal and regular traditional tents with modern designs." },
-    { prefix: "qarmid", count: 3, category: "qarmid", nameAr: "قرميد إيطالي ومعدني", nameEn: "Italian & Metal Qarmid", descAr: "توريد وتركيب القرميد الإيطالي والمعدني للأسطح والواجهات.", descEn: "Supply and installation of Italian and metal roof tiles." },
-    { prefix: "decor", count: 5, category: "decor", nameAr: "ديكورات عشبية ولكسان", nameEn: "Grass & Lexan Decor", descAr: "تصميم وتنفيذ الديكورات الخارجية باستخدام بديل الخشب والعشب.", descEn: "Exterior decorations using weather-resistant wood alternatives and grass." },
-    { prefix: "tensile", count: 2, category: "tensile", nameAr: "مظلات الشد الإنشائي", nameEn: "Tensile Shades", descAr: "مظلات هندسية بأقمشة PVC و PVDF المقاومة للماء.", descEn: "Giant engineered shades with waterproof PVC/PVDF fabrics." }
-  ];
-
-  // Unique high-resolution Drive .jpeg file mapping for each of the 28 items (Zero duplicates)
-  const uniqueDriveFiles = {
-    "1": "new imgs/سندويش بنل.jpeg",
-    "2": "Rayyan GMB/sandwich-panel-room-construction.jpeg",
-    "3": "Rayyan GMB/sandwich-panel-doors-extension.jpeg",
-    "4": "new imgs/مظلات مدارس مخروطي.jpeg",
-    "5": "new imgs/مظلات انشائية الماني PVDF.jpeg",
-    "6": "new imgs/مظلات سيارات كابولي bvc.jpeg",
-    "7": "new imgs/سواتر حديد w-2.jpeg",
-    "8": "new imgs/مظلات ممررات  (½) دائرة.jpeg",
-    "9": "new imgs/سواتر قماش دبل Curie.jpeg",
-    "10": "new imgs/مظلات مسابح x.jpeg",
-    "11": "new imgs/برجولات مودرن.jpeg",
-    "12": "Rayyan GMB/jalsat-kharijiya-pergola-jeddah.jpeg",
-    "13": "Rayyan GMB/pergola-hadaiq-luxury-seating.jpeg",
-    "14": "new imgs/برجولات قص ليزز.jpeg",
-    "15": "Rayyan GMB/pergola-hadaiq-cnc-jeddah.jpeg",
-    "16": "new imgs/بيوت شعر  ملكي.jpeg",
-    "17": "new imgs/بيوت شعر ملكي VIB-1.jpeg",
-    "18": "new imgs/قرميد فخار ايطالي.jpeg",
-    "19": "new imgs/قرميد معدني.jpeg",
-    "20": "new imgs/برجولات حديد و لكسان.jpeg",
-    "21": "new imgs/مظلات جلسات bvc680.jpeg",
-    "22": "new imgs/عشب صناعي.jpeg",
-    "23": "new imgs/جداريات عشب 3D.jpeg",
-    "24": "new imgs/ديكورات بديل الخشب.jpeg",
-    "25": "Rayyan GMB/glass-room-sandwich-panel-jeddah.jpeg",
-    "26": "Rayyan GMB/modern-backyard-room-jeddah.jpeg",
-    "27": "new imgs/مظلات إنسائية شد واير.jpeg",
-    "28": "Rayyan GMB/mazallat-shiraeya-tensile-jeddah.jpeg"
-};
-
-  // Client-requested item overrides by Picture # (serial number)
-  const itemOverrides = {
-    4: {
+  // Complete, unique portfolio items fetched exclusively from gallery/ folder
+  const galleryData = [
+    {
+      serial: 1,
+      src: "gallery/panel-1.jpeg",
+      category: "panels",
+      titleAr: "سندويش بنل - رقم 1",
+      titleEn: "Sandwich Panels - #1",
+      descAr: "توريد وتركيب ألواح سندويش بنل للغرف والملاحق والشقق كاملة.",
+      descEn: "Supply and installation of sandwich panels for rooms and apartments."
+    },
+    {
+      serial: 2,
+      src: "gallery/panel-2.jpeg",
+      category: "panels",
+      titleAr: "سندويش بنل - رقم 2",
+      titleEn: "Sandwich Panels - #2",
+      descAr: "توريد وتركيب ألواح سندويش بنل للغرف والملاحق والشقق كاملة.",
+      descEn: "Supply and installation of sandwich panels for rooms and apartments."
+    },
+    {
+      serial: 3,
+      src: "gallery/panel-3.jpeg",
+      category: "panels",
+      titleAr: "سندويش بنل - رقم 3",
+      titleEn: "Sandwich Panels - #3",
+      descAr: "توريد وتركيب ألواح سندويش بنل للغرف والملاحق والشقق كاملة.",
+      descEn: "Supply and installation of sandwich panels for rooms and apartments."
+    },
+    {
+      serial: 4,
+      src: "gallery/shade-1.jpeg",
       category: "shades",
       titleAr: "مظلات مخروطي PVDF",
       titleEn: "PVDF Cone Shades",
       descAr: "تصميم وتنفيذ مظلات مخروطي بأغشية PVDF الألمانية والوطنية المقاومة للأشعة فوق البنفسجية والأمطار.",
       descEn: "Design and installation of conical PVDF membrane shades resistant to UV rays and rain."
     },
-    5: {
+    {
+      serial: 5,
+      src: "gallery/shade-2.jpeg",
       category: "shades",
       titleAr: "مظلات إنشائية",
       titleEn: "Tensile Shades",
       descAr: "توريد وتركيب مظلات الشد الإنشائي للمشاريع والمواقف والمساحات الواسعة بهياكل فولاذية عالية المتانة.",
       descEn: "Engineering and installation of architectural tensile shades with heavy-duty steel structures."
     },
-    7: {
+    {
+      serial: 6,
+      src: "gallery/shade-3.jpeg",
+      category: "shades",
+      titleAr: "مظلات سيارات - رقم 6",
+      titleEn: "Car Shades - #6",
+      descAr: "حلول كاملة للتظليل وتفصيل جميع أنواع مظلات السيارات.",
+      descEn: "Complete shading solutions and custom car shades."
+    },
+    {
+      serial: 7,
+      src: "gallery/shade-5.jpeg",
       category: "swater",
       titleAr: "سواتر حديد",
       titleEn: "Iron Swater",
       descAr: "تركيب سواتر حديد (شرائح ومجدول) بدهانات فرن حرارية مقاومة للصدأ توفر الخصوصية التامة والأمان.",
       descEn: "Installation of oven-painted rust-resistant iron privacy screens providing complete security."
     },
-    8: {
+    {
+      serial: 8,
+      src: "gallery/shade-6.jpeg",
       category: "swater",
       titleAr: "سواتر لكسان",
       titleEn: "Lexan Swater",
       descAr: "تنفيذ سواتر لكسان بولي كربونيت ضد الكسر بتصاميم فخمة تجمع بين الخصوصية والجمال العصري.",
       descEn: "Unbreakable polycarbonate Lexan privacy screens combining luxury aesthetics with full privacy."
     },
-    11: {
+    {
+      serial: 9,
+      src: "gallery/swater-1.jpeg",
+      category: "swater",
+      titleAr: "سواتر - رقم 9",
+      titleEn: "Privacy Screens - #9",
+      descAr: "تركيب سواتر حديثة توفر الخصوصية التامة والحماية.",
+      descEn: "Installation of modern privacy screens providing complete protection."
+    },
+    {
+      serial: 10,
+      src: "gallery/swater-2.jpeg",
+      category: "swater",
+      titleAr: "سواتر - رقم 10",
+      titleEn: "Privacy Screens - #10",
+      descAr: "تركيب سواتر حديثة توفر الخصوصية التامة والحماية.",
+      descEn: "Installation of modern privacy screens providing complete protection."
+    },
+    {
+      serial: 11,
+      src: "gallery/swater-3.jpeg",
       category: "pergolas",
       titleAr: "برجولة مودرن",
       titleEn: "Modern Pergola",
       descAr: "تصميم وتنفيذ برجولة مودرن للحدائق والأسطح والجلسات الخارجية بلمسات معمارية أنيقة.",
       descEn: "Bespoke modern pergola for gardens, rooftops, and outdoor seating areas."
     },
-    18: {
+    {
+      serial: 12,
+      src: "gallery/pergola-1.jpeg",
+      category: "pergolas",
+      titleAr: "برجولات - رقم 12",
+      titleEn: "Pergolas - #12",
+      descAr: "ابتكار مساحات استرخاء خارجية وبرجولات للحدائق.",
+      descEn: "Innovative outdoor relaxation spaces and pergolas for gardens."
+    },
+    {
+      serial: 13,
+      src: "gallery/pergola-2.jpeg",
+      category: "pergolas",
+      titleAr: "برجولات - رقم 13",
+      titleEn: "Pergolas - #13",
+      descAr: "ابتكار مساحات استرخاء خارجية وبرجولات للحدائق.",
+      descEn: "Innovative outdoor relaxation spaces and pergolas for gardens."
+    },
+    {
+      serial: 14,
+      src: "gallery/pergola-3.jpeg",
+      category: "pergolas",
+      titleAr: "برجولات - رقم 14",
+      titleEn: "Pergolas - #14",
+      descAr: "ابتكار مساحات استرخاء خارجية وبرجولات للحدائق.",
+      descEn: "Innovative outdoor relaxation spaces and pergolas for gardens."
+    },
+    {
+      serial: 15,
+      src: "gallery/pergola-4.jpeg",
+      category: "pergolas",
+      titleAr: "برجولات - رقم 15",
+      titleEn: "Pergolas - #15",
+      descAr: "ابتكار مساحات استرخاء خارجية وبرجولات للحدائق.",
+      descEn: "Innovative outdoor relaxation spaces and pergolas for gardens."
+    },
+    {
+      serial: 16,
+      src: "gallery/tent-1.jpeg",
+      category: "tents",
+      titleAr: "بيوت شعر - رقم 16",
+      titleEn: "Traditional Tents - #16",
+      descAr: "تفصيل وتركيب بيوت شعر ملكية وعادية بتصاميم تراثية وعصرية.",
+      descEn: "Custom royal and regular traditional tents with modern designs."
+    },
+    {
+      serial: 17,
+      src: "gallery/tent-2.jpeg",
+      category: "tents",
+      titleAr: "بيوت شعر - رقم 17",
+      titleEn: "Traditional Tents - #17",
+      descAr: "تفصيل وتركيب بيوت شعر ملكية وعادية بتصاميم تراثية وعصرية.",
+      descEn: "Custom royal and regular traditional tents with modern designs."
+    },
+    {
+      serial: 18,
+      src: "gallery/tent-3.jpeg",
       category: "qarmid",
       titleAr: "قرميد فخار إيطالي",
       titleEn: "Italian Pottery Qarmid",
       descAr: "توريد وتركيب قرميد فخار إيطالي أصلي للأسقف والملاحق والواجهات مع العزل المائي والحراري المتكامل.",
       descEn: "Supply and installation of authentic Italian terracotta clay roof tiles with full insulation."
     },
-    20: {
+    {
+      serial: 19,
+      src: "gallery/qarmid-1.jpeg",
+      category: "qarmid",
+      titleAr: "قرميد إيطالي ومعدني - رقم 19",
+      titleEn: "Italian & Metal Qarmid - #19",
+      descAr: "توريد وتركيب القرميد الإيطالي والمعدني للأسطح والواجهات.",
+      descEn: "Supply and installation of Italian and metal roof tiles."
+    },
+    {
+      serial: 20,
+      src: "gallery/qarmid-2.jpeg",
       category: "pergolas",
       titleAr: "برجولات حديد ولكسان",
       titleEn: "Iron & Lexan Pergolas",
       descAr: "تصميم وتركيب برجولات حديد مغطاة بألواح اللكسان المقاومة للكسر لحماية الجلسات من الأمطار والشمس.",
       descEn: "Custom iron pergolas topped with unbreakable polycarbonate Lexan sheets."
     },
-    25: {
+    {
+      serial: 21,
+      src: "gallery/decor-1.jpeg",
+      category: "decor",
+      titleAr: "ديكورات عشبية ولكسان - رقم 21",
+      titleEn: "Grass & Lexan Decor - #21",
+      descAr: "تصميم وتنفيذ الديكورات الخارجية باستخدام بديل الخشب والعشب.",
+      descEn: "Exterior decorations using weather-resistant wood alternatives and grass."
+    },
+    {
+      serial: 22,
+      src: "gallery/decor-2.jpeg",
+      category: "decor",
+      titleAr: "ديكورات عشبية ولكسان - رقم 22",
+      titleEn: "Grass & Lexan Decor - #22",
+      descAr: "تصميم وتنفيذ الديكورات الخارجية باستخدام بديل الخشب والعشب.",
+      descEn: "Exterior decorations using weather-resistant wood alternatives and grass."
+    },
+    {
+      serial: 23,
+      src: "gallery/decor-3.jpeg",
+      category: "decor",
+      titleAr: "ديكورات عشبية ولكسان - رقم 23",
+      titleEn: "Grass & Lexan Decor - #23",
+      descAr: "تصميم وتنفيذ الديكورات الخارجية باستخدام بديل الخشب والعشب.",
+      descEn: "Exterior decorations using weather-resistant wood alternatives and grass."
+    },
+    {
+      serial: 24,
+      src: "gallery/decor-4.jpeg",
       category: "panels",
       titleAr: "غرف سندويش بنل",
       titleEn: "Sandwich Panel Rooms",
       descAr: "تصميم وتنفيذ غرف وملاحق سندويش بنل حديثة بواجهات زجاجية وعزل حراري ومائي متكامل.",
       descEn: "Design and construction of modern insulated sandwich panel rooms and backyard extensions."
     },
-    26: {
+    {
+      serial: 25,
+      src: "gallery/decor-5.jpeg",
       category: "panels",
       titleAr: "غرف سندويش بنل",
       titleEn: "Sandwich Panel Rooms",
       descAr: "إنشاء وتجهيز غرف سندويش بنل خارجية ومجالس مودرن بأعلى معايير العزل الحراري والتشطيب الفاخر.",
       descEn: "Turnkey modern insulated sandwich panel rooms and luxury outdoor extensions."
+    },
+    {
+      serial: 26,
+      src: "gallery/tensile-1.jpeg",
+      category: "tensile",
+      titleAr: "مظلات الشد الإنشائي - رقم 26",
+      titleEn: "Tensile Shades - #26",
+      descAr: "مظلات هندسية بأقمشة PVC و PVDF المقاومة للماء.",
+      descEn: "Giant engineered shades with waterproof PVC/PVDF fabrics."
+    },
+    {
+      serial: 27,
+      src: "gallery/tensile-2.jpeg",
+      category: "tensile",
+      titleAr: "مظلات الشد الإنشائي - رقم 27",
+      titleEn: "Tensile Shades - #27",
+      descAr: "مظلات هندسية بأقمشة PVC و PVDF المقاومة للماء.",
+      descEn: "Giant engineered shades with waterproof PVC/PVDF fabrics."
     }
-  };
-
-  const galleryData = [];
-  let serialNumber = 1;
-
-  galleryCategories.forEach(function(cat) {
-    const fileList = cat.indices || Array.from({length: cat.count}, function(_, idx) { return idx + 1; });
-    fileList.forEach(function(i) {
-      const ov = itemOverrides[serialNumber];
-      const finalCategory = ov ? ov.category : cat.category;
-      const finalTitleAr = ov ? ov.titleAr : (cat.nameAr + " - رقم " + serialNumber);
-      const finalTitleEn = ov ? ov.titleEn : (cat.nameEn + " - #" + serialNumber);
-      const finalDescAr = ov ? ov.descAr : cat.descAr;
-      const finalDescEn = ov ? ov.descEn : cat.descEn;
-      const fileSrc = "gallery/" + cat.prefix + "-" + i + ".jpeg";
-      const driveSrc = uniqueDriveFiles[serialNumber] || fileSrc;
-
-      galleryData.push({
-        serial: serialNumber,
-        src: fileSrc,
-        driveSrc: driveSrc,
-        category: finalCategory,
-        titleAr: finalTitleAr,
-        titleEn: finalTitleEn,
-        descAr: finalDescAr,
-        descEn: finalDescEn
-      });
-      serialNumber++;
-    });
-  });
+  ];
 
   window.GALLERY_DATA = galleryData;
 
@@ -236,15 +329,19 @@
     for (let i = currentItem; i < maxItem; i++) {
       const item = filteredData[i];
       const badgeNum = item.serial || (i + 1);
-      const embeddedUri = (typeof window.getEmbeddedGalleryUri === "function")
-        ? window.getEmbeddedGalleryUri(badgeNum)
-        : "";
-      const primarySrc = embeddedUri || item.src;
+      const fallbackSvg = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">' +
+        '<rect width="600" height="400" fill="#1A1917"/>' +
+        '<rect x="20" y="20" width="560" height="360" fill="none" stroke="#B68D52" stroke-width="1.5" stroke-opacity="0.45"/>' +
+        '<text x="300" y="190" text-anchor="middle" fill="#D1AE79" font-family="sans-serif" font-size="22" font-weight="bold">' + item.titleAr + '</text>' +
+        '<text x="300" y="225" text-anchor="middle" fill="#C6BFB3" font-family="sans-serif" font-size="16">' + item.titleEn + '</text>' +
+        '</svg>'
+      );
 
       const cardHtml =
         '<div class="gallery-item" data-category="' + item.category + '" data-serial="' + badgeNum + '">' +
-          '<div class="gallery-img-wrapper">' +
-            '<img src="' + primarySrc + '" data-gallery-src="' + item.src + '" data-drive-src="' + (item.driveSrc || '') + '" data-serial="' + badgeNum + '" alt="' + item.titleAr + ' | ' + item.titleEn + '" loading="lazy" decoding="async" style="object-fit: cover; width: 100%; height: 100%;" onerror="window.__handleGalleryImgError&&window.__handleGalleryImgError(this)">' +
+          '<div class="gallery-img-wrapper" style="object-fit: cover; width: 100%; height: 100%;">' +
+            '<img src="' + item.src + '" alt="' + item.titleAr + ' - ' + item.descAr + '" loading="lazy" decoding="async" style="object-fit: cover; width: 100%; height: 100%;" data-fallback="' + fallbackSvg + '" onerror="window.__handleGalleryImgError&&window.__handleGalleryImgError(this)">' +
             '<span class="gallery-badge">#' + badgeNum + '</span>' +
           '</div>' +
           '<div class="gallery-card-body">' +
