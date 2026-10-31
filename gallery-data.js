@@ -1,37 +1,55 @@
 // =========================================================================
 // Al-Rayyan Dynamic Gallery Data & Controller (gallery-data.js)
 // Zero-conflict architecture — works seamlessly with index.html
+// Updated with all client corrections:
+//   - High-resolution original .jpeg images with loading="lazy" decoding="async"
+//   - 100% unique images across all 28 items (fixed #8, #20, #21 duplicates)
+//   - Picture #4  -> Category: shades   | Title Ar: مظلات مخروطي PVDF
+//   - Picture #5  -> Category: shades   | Title Ar: مظلات إنشائية
+//   - Picture #7  -> Category: swater   | Title Ar: سواتر حديد
+//   - Picture #8  -> Category: swater   | Title Ar: سواتر لكسان
+//   - Picture #11 -> Category: pergolas | Title Ar: برجولة مودرن
+//   - Picture #18 -> Category: qarmid   | Title Ar: قرميد فخار إيطالي
+//   - Picture #20 -> Category: pergolas | Title Ar: برجولات حديد ولكسان
+//   - Picture #25 -> Category: panels   | Title Ar: غرف سندويش بنل
+//   - Picture #26 -> Category: panels   | Title Ar: غرف سندويش بنل
 // =========================================================================
 (function() {
-  if (window.__RAYYAN_GALLERY_INITIALIZED__) return;
-  window.__RAYYAN_GALLERY_INITIALIZED__ = true;
-
-  // Smart multi-extension fallback handler
-  if (!window.__handleGalleryImgError) {
-    window.__handleGalleryImgError = function(img) {
-      if (!img) return;
-      const currentTry = parseInt(img.getAttribute('data-try') || '0', 10);
-      const orig = img.getAttribute('data-orig') || img.getAttribute('src') || '';
-      if (!img.getAttribute('data-orig')) {
-        img.setAttribute('data-orig', orig);
-      }
-      const basePath = orig.replace(/\.[a-zA-Z0-9]+$/, '');
-      const candidates = ['.jpg', '.png', '.webp', '.JPG', '.JPEG'];
-
-      if (currentTry < candidates.length) {
-        img.setAttribute('data-try', (currentTry + 1).toString());
-        img.src = basePath + candidates[currentTry];
+  // Smart fallback handler: always guarantees a high-res project photo is displayed
+  window.__handleGalleryImgError = function(img) {
+    if (!img) return;
+    const serial = parseInt(img.getAttribute("data-serial") || "0", 10);
+    if (serial && typeof window.getEmbeddedGalleryUri === "function") {
+      const embeddedUri = window.getEmbeddedGalleryUri(serial);
+      if (embeddedUri && img.src !== embeddedUri) {
+        img.onerror = null;
+        img.src = embeddedUri;
         return;
       }
+    }
+    const currentTry = parseInt(img.getAttribute("data-try") || "0", 10);
+    const orig = img.getAttribute("data-orig") || img.getAttribute("data-gallery-src") || img.getAttribute("src") || "";
+    if (!img.getAttribute("data-orig")) {
+      img.setAttribute("data-orig", orig);
+    }
+    const driveSrc = img.getAttribute("data-drive-src") || "";
+    const basePath = orig.replace(/\.[a-zA-Z0-9]+$/, "");
+    const candidates = [];
+    if (driveSrc) candidates.push(driveSrc);
+    candidates.push(basePath + ".jpg", basePath + ".png", basePath + ".webp", basePath + ".JPG", basePath + ".JPEG");
 
-      const fallbackSvg = img.getAttribute('data-fallback');
-      img.onerror = null;
-      if (fallbackSvg) {
-        img.src = fallbackSvg;
-      }
-    };
-  }
+    if (currentTry < candidates.length) {
+      img.setAttribute("data-try", (currentTry + 1).toString());
+      img.src = candidates[currentTry];
+      return;
+    }
 
+    const fallbackSvg = img.getAttribute("data-fallback");
+    img.onerror = null;
+    if (fallbackSvg) {
+      img.src = fallbackSvg;
+    }
+  };
 
   const galleryCategories = [
     { prefix: "panel", count: 3, category: "panels", nameAr: "سندويش بنل", nameEn: "Sandwich Panels", descAr: "توريد وتركيب ألواح سندويش بنل للغرف والملاحق والشقق كاملة.", descEn: "Supply and installation of sandwich panels for rooms and apartments." },
@@ -44,20 +62,129 @@
     { prefix: "tensile", count: 2, category: "tensile", nameAr: "مظلات الشد الإنشائي", nameEn: "Tensile Shades", descAr: "مظلات هندسية بأقمشة PVC و PVDF المقاومة للماء.", descEn: "Giant engineered shades with waterproof PVC/PVDF fabrics." }
   ];
 
+  // Unique high-resolution Drive .jpeg file mapping for each of the 28 items (Zero duplicates)
+  const uniqueDriveFiles = {
+    "1": "new imgs/سندويش بنل.jpeg",
+    "2": "Rayyan GMB/sandwich-panel-room-construction.jpeg",
+    "3": "Rayyan GMB/sandwich-panel-doors-extension.jpeg",
+    "4": "new imgs/مظلات مدارس مخروطي.jpeg",
+    "5": "new imgs/مظلات انشائية الماني PVDF.jpeg",
+    "6": "new imgs/مظلات سيارات كابولي bvc.jpeg",
+    "7": "new imgs/سواتر حديد w-2.jpeg",
+    "8": "new imgs/مظلات ممررات  (½) دائرة.jpeg",
+    "9": "new imgs/سواتر قماش دبل Curie.jpeg",
+    "10": "new imgs/مظلات مسابح x.jpeg",
+    "11": "new imgs/برجولات مودرن.jpeg",
+    "12": "Rayyan GMB/jalsat-kharijiya-pergola-jeddah.jpeg",
+    "13": "Rayyan GMB/pergola-hadaiq-luxury-seating.jpeg",
+    "14": "new imgs/برجولات قص ليزز.jpeg",
+    "15": "Rayyan GMB/pergola-hadaiq-cnc-jeddah.jpeg",
+    "16": "new imgs/بيوت شعر  ملكي.jpeg",
+    "17": "new imgs/بيوت شعر ملكي VIB-1.jpeg",
+    "18": "new imgs/قرميد فخار ايطالي.jpeg",
+    "19": "new imgs/قرميد معدني.jpeg",
+    "20": "new imgs/برجولات حديد و لكسان.jpeg",
+    "21": "new imgs/مظلات جلسات bvc680.jpeg",
+    "22": "new imgs/عشب صناعي.jpeg",
+    "23": "new imgs/جداريات عشب 3D.jpeg",
+    "24": "new imgs/ديكورات بديل الخشب.jpeg",
+    "25": "Rayyan GMB/glass-room-sandwich-panel-jeddah.jpeg",
+    "26": "Rayyan GMB/modern-backyard-room-jeddah.jpeg",
+    "27": "new imgs/مظلات إنسائية شد واير.jpeg",
+    "28": "Rayyan GMB/mazallat-shiraeya-tensile-jeddah.jpeg"
+};
+
+  // Client-requested item overrides by Picture # (serial number)
+  const itemOverrides = {
+    4: {
+      category: "shades",
+      titleAr: "مظلات مخروطي PVDF",
+      titleEn: "PVDF Cone Shades",
+      descAr: "تصميم وتنفيذ مظلات مخروطي بأغشية PVDF الألمانية والوطنية المقاومة للأشعة فوق البنفسجية والأمطار.",
+      descEn: "Design and installation of conical PVDF membrane shades resistant to UV rays and rain."
+    },
+    5: {
+      category: "shades",
+      titleAr: "مظلات إنشائية",
+      titleEn: "Tensile Shades",
+      descAr: "توريد وتركيب مظلات الشد الإنشائي للمشاريع والمواقف والمساحات الواسعة بهياكل فولاذية عالية المتانة.",
+      descEn: "Engineering and installation of architectural tensile shades with heavy-duty steel structures."
+    },
+    7: {
+      category: "swater",
+      titleAr: "سواتر حديد",
+      titleEn: "Iron Swater",
+      descAr: "تركيب سواتر حديد (شرائح ومجدول) بدهانات فرن حرارية مقاومة للصدأ توفر الخصوصية التامة والأمان.",
+      descEn: "Installation of oven-painted rust-resistant iron privacy screens providing complete security."
+    },
+    8: {
+      category: "swater",
+      titleAr: "سواتر لكسان",
+      titleEn: "Lexan Swater",
+      descAr: "تنفيذ سواتر لكسان بولي كربونيت ضد الكسر بتصاميم فخمة تجمع بين الخصوصية والجمال العصري.",
+      descEn: "Unbreakable polycarbonate Lexan privacy screens combining luxury aesthetics with full privacy."
+    },
+    11: {
+      category: "pergolas",
+      titleAr: "برجولة مودرن",
+      titleEn: "Modern Pergola",
+      descAr: "تصميم وتنفيذ برجولة مودرن للحدائق والأسطح والجلسات الخارجية بلمسات معمارية أنيقة.",
+      descEn: "Bespoke modern pergola for gardens, rooftops, and outdoor seating areas."
+    },
+    18: {
+      category: "qarmid",
+      titleAr: "قرميد فخار إيطالي",
+      titleEn: "Italian Pottery Qarmid",
+      descAr: "توريد وتركيب قرميد فخار إيطالي أصلي للأسقف والملاحق والواجهات مع العزل المائي والحراري المتكامل.",
+      descEn: "Supply and installation of authentic Italian terracotta clay roof tiles with full insulation."
+    },
+    20: {
+      category: "pergolas",
+      titleAr: "برجولات حديد ولكسان",
+      titleEn: "Iron & Lexan Pergolas",
+      descAr: "تصميم وتركيب برجولات حديد مغطاة بألواح اللكسان المقاومة للكسر لحماية الجلسات من الأمطار والشمس.",
+      descEn: "Custom iron pergolas topped with unbreakable polycarbonate Lexan sheets."
+    },
+    25: {
+      category: "panels",
+      titleAr: "غرف سندويش بنل",
+      titleEn: "Sandwich Panel Rooms",
+      descAr: "تصميم وتنفيذ غرف وملاحق سندويش بنل حديثة بواجهات زجاجية وعزل حراري ومائي متكامل.",
+      descEn: "Design and construction of modern insulated sandwich panel rooms and backyard extensions."
+    },
+    26: {
+      category: "panels",
+      titleAr: "غرف سندويش بنل",
+      titleEn: "Sandwich Panel Rooms",
+      descAr: "إنشاء وتجهيز غرف سندويش بنل خارجية ومجالس مودرن بأعلى معايير العزل الحراري والتشطيب الفاخر.",
+      descEn: "Turnkey modern insulated sandwich panel rooms and luxury outdoor extensions."
+    }
+  };
+
   const galleryData = [];
   let serialNumber = 1;
 
   galleryCategories.forEach(function(cat) {
     const fileList = cat.indices || Array.from({length: cat.count}, function(_, idx) { return idx + 1; });
     fileList.forEach(function(i) {
+      const ov = itemOverrides[serialNumber];
+      const finalCategory = ov ? ov.category : cat.category;
+      const finalTitleAr = ov ? ov.titleAr : (cat.nameAr + " - رقم " + serialNumber);
+      const finalTitleEn = ov ? ov.titleEn : (cat.nameEn + " - #" + serialNumber);
+      const finalDescAr = ov ? ov.descAr : cat.descAr;
+      const finalDescEn = ov ? ov.descEn : cat.descEn;
+      const fileSrc = "gallery/" + cat.prefix + "-" + i + ".jpeg";
+      const driveSrc = uniqueDriveFiles[serialNumber] || fileSrc;
+
       galleryData.push({
         serial: serialNumber,
-        src: "gallery/" + cat.prefix + "-" + i + ".jpeg",
-        category: cat.category,
-        titleAr: cat.nameAr + " - رقم " + serialNumber,
-        titleEn: cat.nameEn + " - #" + serialNumber,
-        descAr: cat.descAr,
-        descEn: cat.descEn
+        src: fileSrc,
+        driveSrc: driveSrc,
+        category: finalCategory,
+        titleAr: finalTitleAr,
+        titleEn: finalTitleEn,
+        descAr: finalDescAr,
+        descEn: finalDescEn
       });
       serialNumber++;
     });
@@ -108,20 +235,16 @@
 
     for (let i = currentItem; i < maxItem; i++) {
       const item = filteredData[i];
-      const badgeNum = i + 1;
-      const fallbackSvg = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
-        '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">' +
-        '<rect width="600" height="400" fill="#1A1917"/>' +
-        '<rect x="20" y="20" width="560" height="360" fill="none" stroke="#B68D52" stroke-width="1.5" stroke-opacity="0.45"/>' +
-        '<text x="300" y="190" text-anchor="middle" fill="#D1AE79" font-family="sans-serif" font-size="22" font-weight="bold">' + item.titleAr + '</text>' +
-        '<text x="300" y="225" text-anchor="middle" fill="#C6BFB3" font-family="sans-serif" font-size="16">' + item.titleEn + '</text>' +
-        '</svg>'
-      );
+      const badgeNum = item.serial || (i + 1);
+      const embeddedUri = (typeof window.getEmbeddedGalleryUri === "function")
+        ? window.getEmbeddedGalleryUri(badgeNum)
+        : "";
+      const primarySrc = embeddedUri || item.src;
 
       const cardHtml =
-        '<div class="gallery-item" data-category="' + item.category + '">' +
+        '<div class="gallery-item" data-category="' + item.category + '" data-serial="' + badgeNum + '">' +
           '<div class="gallery-img-wrapper">' +
-            '<img src="' + item.src + '" alt="' + item.titleAr + ' | ' + item.titleEn + '" loading="lazy" decoding="async" data-fallback="' + fallbackSvg + '" onerror="window.__handleGalleryImgError?window.__handleGalleryImgError(this):(this.onerror=null,this.src=this.getAttribute(\'data-fallback\'))">' +
+            '<img src="' + primarySrc + '" data-gallery-src="' + item.src + '" data-drive-src="' + (item.driveSrc || '') + '" data-serial="' + badgeNum + '" alt="' + item.titleAr + ' | ' + item.titleEn + '" loading="lazy" decoding="async" style="object-fit: cover; width: 100%; height: 100%;" onerror="window.__handleGalleryImgError&&window.__handleGalleryImgError(this)">' +
             '<span class="gallery-badge">#' + badgeNum + '</span>' +
           '</div>' +
           '<div class="gallery-card-body">' +
@@ -158,6 +281,8 @@
     loadGalleryItems();
 
     filterBtns.forEach(function(btn) {
+      if (btn.getAttribute("data-gallery-bound") === "true") return;
+      btn.setAttribute("data-gallery-bound", "true");
       btn.addEventListener("click", function(e) {
         e.preventDefault();
         filterBtns.forEach(function(b) {
@@ -174,7 +299,8 @@
       });
     });
 
-    if (loadMoreBtn) {
+    if (loadMoreBtn && loadMoreBtn.getAttribute("data-gallery-bound") !== "true") {
+      loadMoreBtn.setAttribute("data-gallery-bound", "true");
       loadMoreBtn.addEventListener("click", function(e) {
         e.preventDefault();
         loadGalleryItems();
